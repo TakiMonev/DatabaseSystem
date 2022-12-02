@@ -9,12 +9,22 @@
     <script src="../lib/jquery-3.6.0.min.js"></script>
 </head>
 <style>
+    .header {
+        display: flex;
+        max-width: 100%;
+        height: 200px; 
+        background-color: lightgray;
+        justify-content: center;
+        align-items: center;
+    }
+    
     * {
+        
         margin: 0;
         padding: 0;
         }
 
-        body {
+        .my_body {
         font-family: 'Noto Sans KR', sans-serif;
         display: flex;
         justify-content: center;
@@ -113,26 +123,32 @@
         }
 </style>
 <body>
-    <section class="login-form">
-        <h1 style="background-color: gray;">기차타고 여행가자</h1>
-        <h1>Login</h1>
-        <form action="">
-            <div class="int-area">
-                <input type="text" name="id" id="id" autocomplete="off" required>
-                <label for="id">USER NAME</label>
-            </div>
-            <div class="int-area">
-                <input type="password" name="pw" id="pw" autocomplete="off" required>
-                <label for="pw">PASSWORD</label>
-            </div>
-            <div class="btn-area">
-                <button id="btn" type="submit">LOGIN</button>
-            </div>
-        </form>
-        <div class="btn-area">
-            <button id="btn" type="submit">회원가입</button>
+    <div class="container header">
+        <div class="row">
+            <h1>기차타고 여행가자</h1>
         </div>
-    </section>
+    </div>
+    <div class="my_body">
+        <section class="login-form">
+            <h1>Login</h1>
+            <form action="">
+                <div class="int-area">
+                    <input type="text" name="id" id="id" autocomplete="off" required>
+                    <label for="id">USER NAME</label>
+                </div>
+                <div class="int-area">
+                    <input type="password" name="pw" id="pw" autocomplete="off" required>
+                    <label for="pw">PASSWORD</label>
+                </div>
+                <div class="btn-area">
+                    <button id="btn" type="submit">LOGIN</button>
+                </div>
+            </form>
+            <div class="btn-area">
+                <button id="btn" type="submit">회원가입</button>
+            </div>
+        </section>
+    </div>
 
     <script>       
         let id = $('#id');

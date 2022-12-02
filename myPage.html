@@ -23,7 +23,16 @@
         padding: 0;
         }
 
-        body {
+    .header {
+        display: flex;
+        max-width: 100%;
+        height: 200px; 
+        background-color: lightgray;
+        justify-content: center;
+        align-items: center;
+    }
+
+        .my_body {
         margin-top: 50px;
         font-family: 'Noto Sans KR', sans-serif;
         display: flex;
@@ -145,25 +154,34 @@
 </style>
 
 <body>
-    <div class="container" style="width: 600px; text-align:center;">
+
+    <div class="container header">
         <div class="row">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="home_button col-md-3 col-sm-3 bi bi-house" viewBox="0 0 16 16">
-                <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
-            </svg>
-            <h1 class="col-md-6 col-sm-6">승규 여행</h1>
-            <h5 class="col-md-3 col-sm-3 res_info">예약 정보</h5>
+            <h1>기차타고 여행가자</h1>
         </div>
-        <div class="row">
-            <p>이상윤 | lsyun1234@naver.com</p>
-        </div>
-        <div class="row my_info">
-            <h5>나의 예약</h5>
-        </div>
-        <div class="row">
-            <p>청주 -> 부산 20000원<button type="button" class="btn btn-info" style="margin-left: 15px;">세부 정보</button>
-                <button type="button" class="btn btn-danger" style="margin-left: 15px;">예약 취소</button></p>
-            <p>청주 -> 서울 20000원 <button type="button" class="btn btn-info" style="margin-left: 15px;">세부 정보</button>
-                <button type="button" class="btn btn-danger" style="margin-left: 15px;">예약 취소</button></p>
+    </div>
+
+    <div class="my_body">
+        <div class="container" style="width: 600px; text-align:center;">
+            <div class="row">
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="home_button col-md-3 col-sm-3 bi bi-house" viewBox="0 0 16 16">
+                    <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z"/>
+                </svg>
+                <h1 class="col-md-6 col-sm-6">승규 여행</h1>
+                <h5 class="col-md-3 col-sm-3 res_info">예약 정보</h5>
+            </div>
+            <div class="row">
+                <p>이상윤 | lsyun1234@naver.com</p>
+            </div>
+            <div class="row my_info">
+                <h5>나의 예약</h5>
+            </div>
+            <div class="row">
+                <p>청주 -> 부산 20000원<button type="button" class="btn btn-info" style="margin-left: 15px;">세부 정보</button>
+                    <button type="button" class="btn btn-danger" style="margin-left: 15px;">예약 취소</button></p>
+                <p>청주 -> 서울 20000원 <button type="button" class="btn btn-info" style="margin-left: 15px;">세부 정보</button>
+                    <button type="button" class="btn btn-danger" style="margin-left: 15px;">예약 취소</button></p>
+            </div>
         </div>
     </div>
 </body>

@@ -26,11 +26,26 @@
             const selected = document.getElementById('navbarDropdown');
             selected.innerHTML = price; 
         }
+
+        function changeMenu2(num_of_bags)
+        {
+            const selected = document.getElementById('navbarDropdown2');
+            selected.innerHTML = num_of_bags;
+        }
     </script>
 </head>
 
 <style>
-    body {
+    .header {
+        display: flex;
+        max-width: 100%;
+        height: 200px; 
+        background-color: lightgray;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .my_body {
         margin-top: 50px;
         font-family: 'Noto Sans KR', sans-serif;
         display: flex;
@@ -72,7 +87,12 @@
 </style>
 
 <body>
-    <div>
+    <div class="container header">
+        <div class="row">
+            <h1>기차타고 여행가자</h1>
+        </div>
+    </div>
+    <div class="my_body">
         <div class="row col-md-4 col-sm-4 my_area">
             <img src="train.png" alt="example" class="my_area">
             <p>소개</p>
@@ -94,8 +114,8 @@
             </div>
         </div>
         <div class="row col-md-4 col-sm-4 my_area">
-            <p>출발 시간 :</p>
-            <p>도착 시간 :</p>
+            <p id="start_time">출발 시간 :</p>
+            <p id="end_time">도착 시간 :</p>
             <div class="drop_down_area">
                 <div class="nav-item dropdown">
                     <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
@@ -106,6 +126,16 @@
                         <a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="changeMenu('10000원')">10000원</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="changeMenu('20000원')">20000원</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price3" onclick="changeMenu('30000원')">30000원</a>
+                    </div>
+                </div>
+                <div class="nav-item dropdown">
+                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true">
+                        가방수 선택
+                    </button>
+                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink">
+                        <a class="dropdown-item" style="display: block;" href="#" id="price0" onclick="changeMenu2('가방수 선택')">가방수 선택</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="changeMenu2('1')">1</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="changeMenu2('2')">2</a>
                     </div>
                 </div>
             </div>
