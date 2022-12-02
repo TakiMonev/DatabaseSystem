@@ -1,11 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>예약 정보</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>예약정보</title><link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="../css/login.css">
+        <link href="css/style.css" rel="stylesheet" type="text/css">
+        <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link href="css/animate.css" rel="stylesheet" type="text/css">
+        
+        <script src="../lib/jquery-3.6.0.min.js"></script>
+    </head>
 
+    <!--Header_section-->
+    <header id="header_wrapper">
+        <div class="container">
+            <div class="header_box">
+                <div class="logo"><a href="#"><img src="img/logo.png" alt="logo"></a></div>
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span
+                                class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="main-nav" class="collapse navbar-collapse navStyle">
+                        <ul class="nav navbar-nav" id="mainNav">
+                            <li class="active"><a href="#hero_section" class="scroll-link">Home</a></li>
+                            <li><a href="train-booking.html" class="scroll-link">Book Tickets</a></li>
+                            <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
+                            <li><a href="#service" class="scroll-link">Services</a></li>
+                            <li><a href="#station" class="scroll-link">STATION</a></li>
+                            <li><a href="#clients" class="scroll-link">Meals</a></li>
+                            <li><a href="#team" class="scroll-link">Team</a></li>
+                            <li><a href="#contact" class="scroll-link">Contact</a></li>
+                            <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+<!--Header_section-->
+    
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" 
     rel="stylesheet">
@@ -86,12 +124,8 @@
     }
 </style>
 
+
 <body>
-    <div class="container header">
-        <div class="row">
-            <h1>기차타고 여행가자</h1>
-        </div>
-    </div>
     <div class="my_body">
         <div class="row col-md-4 col-sm-4 my_area">
             <img src="train.png" alt="example" class="my_area">
@@ -143,4 +177,5 @@
         </div>
     </div>
 </body>
+
 </html>
