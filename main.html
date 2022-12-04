@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>메인</title><link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/login.css">
+    <!-- 문제의 style css -->
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
     <link href="css/animate.css" rel="stylesheet" type="text/css">
+    <link href="css/mycss.css" rel="stylesheet" type="text/css">
     
     <script src="../lib/jquery-3.6.0.min.js"></script>
 </head>
@@ -44,176 +46,182 @@
 </header>
 <!--Header_section-->
 
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    }
+
+.header {
+    display: flex;
+    max-width: 100%;
+    height: 200px; 
+    background-color: lightgray;
+    justify-content: center;
+    align-items: center;
+}
+
+    .my_body {
+    margin-top: 50px;
+    font-family: 'Noto Sans KR', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    }
+
+    .login-form h1 {
+    font-size: 40px;
+    text-align: center;
+    margin-bottom: 50px;
+    }
+
+    .int-area {
+    width: 400px;
+    position: relative;
+    margin-top: 20px;
+    }
+
+    .int-area:first-child {
+    margin-top: 0;
+    }
+
+    .int-area input {
+    width: 100%;
+    padding: 20px 10px 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    font-size: 18px;
+    outline: none;
+    }
+
+    .int-area label {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+    font-size: 18px;
+    transition: top 0.5s ease;
+    }
+
+    .int-area label.warning {
+    color: red !important;
+    animation: warning 0.3s ease;
+    animation-iteration-count: 3;
+    }
+
+    @keyframes warning {
+    0% {
+        transform: translateX(-8px);
+    }
+    25% {
+        transform: translateX(8px);
+    }
+    50% {
+        transform: translateX(-8px);
+    }
+    75% {
+        transform: translateX(8px);
+    }
+    }
+
+    .int-area input:focus + label,
+    .int-area input:valid + label {
+    top: -2px;
+    font-size: 13px;
+    color: #166caa;
+    }
+
+    .btn-area {
+    margin-top: 30px;
+    }
+
+    .btn-area button {
+    width: 100%;
+    height: 50px;
+    margin: 0px 10px;
+    color: #fff;
+    background: #166caa;
+    border: none;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    }
+
+    .caption {
+    margin-top: 20px;
+    text-align: center;
+    }
+
+    .caption a {
+    margin: 0 20px;
+    font-size: 15px;
+    color: blue;
+    text-decoration: none;
+    }
+
+    .row {
+        padding: 10px;
+    }
+
+    .top3 {
+        display: flex;
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        height: 150px;
+        background-color: wheat;
+    }
+    .main_btn {
+        display: flex;
+        max-width: 100%;
+        width: 100%;
+        margin-bottom: 20px;
+        height: 100px;
+        padding: 20px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .info_picture {
+        display: flex;
+        max-width: 100%;
+        height: 300px; 
+        background: url('/img/cover1.jpg') top center no-repeat;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+
+<style type="text/css">
+    @import url("css/mycss.css");
+</style>
+
 <!--Hero_Section-->
-<section id="hero_section" class="top_cont_outer">
-    <div class="hero_wrapper">
-        <div class="container">
-            <div class="hero_section">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="top_left_cont zoomIn wow animated">
-                            <h2>기차 타고 여행가자~</h2>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<section id="info" class="train_trip">
+    <div class="info_picture" style="background: url('./train.jpg') top center no-repeat;">
+        <h2 style="color: white;">기차 타고 여행가자~</h2>                
     </div>
 </section>
 <!--Hero_Section-->
 
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        }
-
-    .header {
-        display: flex;
-        max-width: 100%;
-        height: 200px; 
-        background-color: lightgray;
-        justify-content: center;
-        align-items: center;
-    }
-
-        .my_body {
-        margin-top: 50px;
-        font-family: 'Noto Sans KR', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        }
-
-        .login-form h1 {
-        font-size: 40px;
-        text-align: center;
-        margin-bottom: 50px;
-        }
-
-        .int-area {
-        width: 400px;
-        position: relative;
-        margin-top: 20px;
-        }
-
-        .int-area:first-child {
-        margin-top: 0;
-        }
-
-        .int-area input {
-        width: 100%;
-        padding: 20px 10px 10px;
-        background-color: transparent;
-        border: none;
-        border-bottom: 1px solid black;
-        font-size: 18px;
-        outline: none;
-        }
-
-        .int-area label {
-        position: absolute;
-        left: 10px;
-        top: 15px;
-        font-size: 18px;
-        transition: top 0.5s ease;
-        }
-
-        .int-area label.warning {
-        color: red !important;
-        animation: warning 0.3s ease;
-        animation-iteration-count: 3;
-        }
-
-        @keyframes warning {
-        0% {
-            transform: translateX(-8px);
-        }
-        25% {
-            transform: translateX(8px);
-        }
-        50% {
-            transform: translateX(-8px);
-        }
-        75% {
-            transform: translateX(8px);
-        }
-        }
-
-        .int-area input:focus + label,
-        .int-area input:valid + label {
-        top: -2px;
-        font-size: 13px;
-        color: #166caa;
-        }
-
-        .btn-area {
-        margin-top: 30px;
-        }
-
-        .btn-area button {
-        width: 100%;
-        height: 50px;
-        margin: 0px 10px;
-        color: #fff;
-        background: #166caa;
-        border: none;
-        border-radius: 20px;
-        font-size: 20px;
-        cursor: pointer;
-        }
-
-        .caption {
-        margin-top: 20px;
-        text-align: center;
-        }
-
-        .caption a {
-        margin: 0 20px;
-        font-size: 15px;
-        color: blue;
-        text-decoration: none;
-        }
-
-        .row {
-            padding: 10px;
-        }
-
-        .top3 {
-            display: flex;
-            text-align: center;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            height: 150px;
-            background-color: skyblue;
-            background-clip: content-box;
-        }
-        .main_btn {
-            max-width: 100%;
-            width: 100%;
-            margin-bottom: 20px;
-        }
-</style>
-
 <body>
     <div class="container" style="width: 600px; text-align:center;">
         <hr>
+        <button type="button" class="btn btn-info main_btn">
+            <h2>내 예약 정보</h2>
+        </button>
         <h2>Top 3 열차 경로</h2>
         <div class="row">
-            <div class="col-md-4 col-sm-8 b top3">Top1</div>
-            <div class="col-md-4 col-sm-8 b top3">Top2</div>
-            <div class="col-md-4 col-sm-8 b top3">Top3</div>
+            <button type="button" class="btn-secondary col-md-4 col-sm-8 b" style="height: 80px;">Top1</button>
+            <button type="button" class="btn-secondary col-md-4 col-sm-8 b" style="height: 80px;">Top2</button>
+            <button type="button" class="btn-secondary col-md-4 col-sm-8 b" style="height: 80px;">Top3</button>
         </div>
-        <button type="button" class="btn btn-secondary main_btn">
-            <h2>회원 정보</h2>
-        </button>
-        <button type="button" class="btn btn-secondary main_btn">
-            <h2>열차 검색 / 출발선택</h2>
-        </button>
-        <button type="button" class="btn btn-secondary main_btn">
-            <h2>예약 수정</h2>
-        </button>
+
+        <div class="table-responsive  text-center">
+            <table class="table table-bordered table-hover">
+                <
+            </table>
+          </div>
     </div>
 </body>
 </html>

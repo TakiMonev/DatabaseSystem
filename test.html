@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test</title>
+</head>
+
+
+<script type="text/javascript">
+
+    let xhttp = new XMLHttpRequest();
+    
+    xhttp.onreadystatechange = function () {
+        if(xhttp.readyState == 4 && xhttp.status == 200){
+            //jsonfunc(this.responseText); //this = xhttp
+    		jsonfunc(xhttp.responseText); // 둘다 가능
+            window.alert(xttp.responseText);
+        }
+    }
+    xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/attractions", true);
+    xhttp.send();
+    
+    function jsonfunc( jsonText ) {
+    
+        let json = JSON.parse(jsonText); // String -> json으로 변환
+        
+        let txt = "";
+        
+        for (let i = 0; i < json.length; i++)
+        {
+            txt += json[i]['attrName'];
+        }
+        txt += "<br>"
+
+        document.getElementById('ttt').innerHTML = txt;
+    }
+</script>
+
+<body>
+    <button onclick="see()" id="ttt">hi : </button>
+</body>
+</html>

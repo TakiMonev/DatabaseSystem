@@ -1,63 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>예약정보</title><link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="../css/login.css">
-        <link href="css/style.css" rel="stylesheet" type="text/css">
-        <link href="css/font-awesome.css" rel="stylesheet" type="text/css">
-        <link href="css/animate.css" rel="stylesheet" type="text/css">
-        
-        <script src="../lib/jquery-3.6.0.min.js"></script>
-    </head>
-
-    <!--Header_section-->
-    <header id="header_wrapper">
-        <div class="container">
-            <div class="header_box">
-                <div class="logo"><a href="#"><img src="img/logo.png" alt="logo"></a></div>
-                <nav class="navbar navbar-inverse" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse"
-                            data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span
-                                class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                        </button>
-                    </div>
-                    <div id="main-nav" class="collapse navbar-collapse navStyle">
-                        <ul class="nav navbar-nav" id="mainNav">
-                            <li class="active"><a href="#hero_section" class="scroll-link">Home</a></li>
-                            <li><a href="train-booking.html" class="scroll-link">Book Tickets</a></li>
-                            <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
-                            <li><a href="#service" class="scroll-link">Services</a></li>
-                            <li><a href="#station" class="scroll-link">STATION</a></li>
-                            <li><a href="#clients" class="scroll-link">Meals</a></li>
-                            <li><a href="#team" class="scroll-link">Team</a></li>
-                            <li><a href="#contact" class="scroll-link">Contact</a></li>
-                            <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
-        </div>
-    </header>
-<!--Header_section-->
     
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" 
-    rel="stylesheet">
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" 
-    crossorigin="anonymous">
-    </script>
-    <script src="/static/js/bootstrap.bundle.js"></script>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>예약 정보</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
+    
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
         function changeMenu(price)
         {
@@ -69,6 +32,18 @@
         {
             const selected = document.getElementById('navbarDropdown2');
             selected.innerHTML = num_of_bags;
+        }
+
+        function changePlace(place)
+        {
+            const selected = document.getElementById('place_type');
+            selected.innerHTML = place;
+        }
+
+        function changePlace2(place)
+        {
+            const selected = document.getElementById('place_type2');
+            selected.innerHTML = place;
         }
     </script>
 </head>
@@ -124,6 +99,37 @@
     }
 </style>
 
+<!--Header_section-->
+<header id="header_wrapper">
+    <div class="container">
+        <div class="header_box">
+            <div class="logo"><a href="#"><img src="img/logo.png" alt="logo"></a></div>
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="main-nav" class="collapse navbar-collapse navStyle" style="width: 100%;">
+                    <!-- 문제의 구간(이였던 것) -->
+                    <ul class="nav navbar-collapse" id="mainNav">
+                        <li class="active"><a href="#hero_section" class="scroll-link">Home</a></li>
+                        <li><a href="train-booking.html" class="scroll-link">Book Tickets</a></li>
+                        <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
+                        <li><a href="#service" class="scroll-link">Services</a></li>
+                        <li><a href="#station" class="scroll-link">STATION</a></li>
+                        <li><a href="#clients" class="scroll-link">Meals</a></li>
+                        <li><a href="#team" class="scroll-link">Team</a></li>
+                        <li><a href="#contact" class="scroll-link">Contact</a></li>
+                        <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+<!--Header_section-->
 
 <body>
     <div class="my_body">
@@ -142,9 +148,30 @@
         </div>
         <div class="row col-md-4 col-sm-4 my_area">
             <img src="route.png" alt="example">
-            <div class="pos_point">
-                <textarea class="form-control my_text" rows="1" readonly>출발지 : 청주</textarea>
-                <textarea class="form-control my_text" rows="1" readonly>도착지 : 서울</textarea>
+            <div class="pos_point nav-item dropdown">
+                <div class="drop_down_area my_text">
+                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="place_type" role="button" data-toggle="dropdown" aria-haspopup="true">
+                        출발지 선택
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
+                        <a class="dropdown-item" style="display: block;" href="#" id="place0" onclick="changePlace('출발지 선택')">출발지 선택</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="place1" onclick="changePlace('서울')">서울</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="place2" onclick="changePlace('청주')">청주</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="place3" onclick="changePlace('대전')">대전</a>
+                    </div>
+                </div>
+                
+                <div class="drop_down_area my_text">
+                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="place_type2" role="button" data-toggle="dropdown" aria-haspopup="true">
+                        도착지 선택
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
+                        <a class="dropdown-item" style="display: block;" href="#" id="place4" onclick="changePlace2('도착지 선택')">도착지 선택</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="place5" onclick="changePlace2('서울')">서울</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="place6" onclick="changePlace2('청주')">청주</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="place7" onclick="changePlace2('대전')">대전</a>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="row col-md-4 col-sm-4 my_area">
@@ -152,28 +179,28 @@
             <p id="end_time">도착 시간 :</p>
             <div class="drop_down_area">
                 <div class="nav-item dropdown">
-                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
                         클래스(가격) 선택
                     </button>
-                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink">
-                        <a class="dropdown-item" style="display: block;" href="#" id="price0" onclick="changeMenu('클래스(가격) 선택')">클래스(가격) 선택</a>
+                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
+                        <a class="dropdown-item" style="display: block;;" href="#" id="price0" onclick="changeMenu('클래스(가격) 선택')">클래스(가격) 선택</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="changeMenu('10000원')">10000원</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="changeMenu('20000원')">20000원</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price3" onclick="changeMenu('30000원')">30000원</a>
                     </div>
                 </div>
                 <div class="nav-item dropdown">
-                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true">
+                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true">
                         가방수 선택
                     </button>
-                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink">
+                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
                         <a class="dropdown-item" style="display: block;" href="#" id="price0" onclick="changeMenu2('가방수 선택')">가방수 선택</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="changeMenu2('1')">1</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="changeMenu2('2')">2</a>
                     </div>
                 </div>
             </div>
-            <div class="row"><button class="btn btn-info" type="submit">예약 완료</button></div>
+            <div class="row"><button class="btn btn-info" type="submit" style="font-size: 20px;">예약 완료</button></div>
         </div>
     </div>
 </body>
