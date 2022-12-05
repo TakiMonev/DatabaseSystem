@@ -84,7 +84,6 @@
             
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 //let txt = "";
-                window.alert(jsonText);
 
                 for (let i = 0; i < json.length; i++)
                 {
@@ -185,7 +184,6 @@
                     txt += `');">`;
                     txt += json[i]['arrivalName'];
                     txt += "</a>";
-                    window.alert(txt);
                 }
                 document.getElementById("end_points").innerHTML = txt;
             }
