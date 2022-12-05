@@ -22,9 +22,10 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script type='text/javascript'>
+        var nowPos = "";
         function resv_detail() 
         {
-            const arrive = document.getElementById('place_type2');
+            //const arrive = document.getElementById('ep');
             let xhttp = new XMLHttpRequest();
 
             xhttp.onreadystatechange = function () {
@@ -33,7 +34,88 @@
                     jsonfunc(xhttp.responseText);
                 }
             }
-            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/attraction?location=" + arrive.innerHTML + "&stationName=" + arrive.innerHTML + "역", true);
+            
+            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/attractions");
+            
+            xhttp.send();
+            let txt = "";
+
+            function jsonfunc( jsonText ) {
+            
+                let json = JSON.parse(jsonText); // String -> json으로 변환
+                //let txt = "";
+                window.alert(jsonText);
+                for (let i = 0; i < json.length; i++)
+                {
+                    if (arrive === json["attrName"])
+                    {
+                        txt += "<div class='place_area row' style='display: inline-block;'>";
+                        txt += json[i]['attrName'];
+                        txt += "</div>";
+                    }
+                    //window.alert(arrive +  " " + json["arrivalName"]);
+                }
+                document.getElementById("near_station").innerHTML = txt;
+            }
+        
+        }
+
+        function start_function()
+        {
+            const End = document.getElementById('start_points');
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if(xhttp.readyState == 4 && xhttp.status == 200){
+                    //jsonfunc(this.responseText);
+                    jsonfunc(xhttp.responseText);
+                }
+            }
+            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/route/all");
+            xhttp.send();
+
+            function jsonfunc( jsonText ) {
+            
+                let json = JSON.parse(jsonText); // String -> json으로 변환
+                let txt = "";
+
+                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace2(도착지 선택);">출발지 선택</a>`;
+                
+                for (let i = 0; i < json.length; i++)
+                {
+                    let flag = 0;
+                    for (let j = i + 1; j < json.length; j++)
+                    {
+                        if (json[i]['arrivalName'] === json[i]['arrivalName'])
+                            flag = 1;
+                    }
+
+                    if (!flag)
+                        continue;
+                    
+                    txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp"`;
+                    txt += `onclick="changePlace('`;
+                    txt += json[i]['departureName'];
+                    txt += `'); ">`;
+                    txt += json[i]['departureName'];
+                    txt += "</a>";
+                }
+                document.getElementById("start_points").innerHTML = txt;
+            }
+        }
+
+        function end_function()
+        {
+            const End = document.getElementById('end_points');
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if(xhttp.readyState == 4 && xhttp.status == 200){
+                    //jsonfunc(this.responseText);
+                    jsonfunc(xhttp.responseText);
+                }
+            }
+            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/route/all");
             xhttp.send();
 
             function jsonfunc( jsonText ) {
@@ -41,20 +123,34 @@
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 let txt = "";
                 
+                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace2(도착지 선택); resv_detail();">도착지 선택</a>`;
+
                 for (let i = 0; i < json.length; i++)
                 {
-                    txt += "<div class='place_area row' style='display: inline-block;'>";
-                    txt += json[i]['attrName'];
-                    txt += "</div>";
+                    let flag = 0;
+                    for (let j = i + 1; j < json.length; j++)
+                    {
+                        if (json[i]['arrivalName'] === json[i]['arrivalName'])
+                            flag = 1;
+                    }
+
+                    if (!flag)
+                        continue;
+
+                    txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep"`;
+                    txt += `onclick="changePlace2('`;
+                    txt += json[i]['arrivalName'];
+                    txt += `'); resv_detail();">`;
+                    txt += json[i]['arrivalName'];
+                    txt += "</a>";
                 }
-                document.getElementById("near_station").innerHTML = txt;
+                document.getElementById("end_points").innerHTML = txt;
             }
-        
         }
 
         function changeMenu(price)
         {
-            document.getElementById("near_station").innerHTML = "";
+            document.getElementById("near_station").innedrHTML = "";
             const selected = document.getElementById('navbarDropdown');
             selected.innerHTML = price; 
         }
@@ -77,6 +173,22 @@
         {
             document.getElementById("near_station").innerHTML = "";
             const selected = document.getElementById('place_type2');
+            
+            if (place === "대전역")
+            {
+                nowPos = "대전";
+            }
+
+            else if (place === "서울역")
+            {
+                nowPos = "서울";
+            }
+
+            else
+            {
+                nowPos = "";
+            }
+
             selected.innerHTML = place;
         }
     </script>
@@ -168,6 +280,8 @@
 <!--Header_section-->
 
 <body>
+    <input type="hidden" id="서울" value="서울">
+    <input type="hidden" id="대전" value="대전">
     <div class="my_body">
         <div class="row col-md-4 col-sm-4 my_area">
             <img src="train.png" alt="example" class="my_area">
@@ -189,11 +303,8 @@
                     <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="place_type" role="button" data-toggle="dropdown" aria-haspopup="true">
                         출발지 선택
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
-                        <a class="dropdown-item" style="display: block;" href="#" id="place0" onclick="changePlace('출발지 선택')">출발지 선택</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="place1" onclick="changePlace('서울')">서울</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="place2" onclick="changePlace('청주')">청주</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="place3" onclick="changePlace('대전')">대전</a>
+                    <div id="start_points" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
+                        <script>start_function()</script>
                     </div>
                 </div>
                 
@@ -201,11 +312,8 @@
                     <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="place_type2" role="button" data-toggle="dropdown" aria-haspopup="true">
                         도착지 선택
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
-                        <a class="dropdown-item" style="display: block;" href="#" id="place4" onclick="changePlace2('도착지 선택')">도착지 선택</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="place5" onclick="changePlace2('서울'); resv_detail();">서울</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="place6" onclick="changePlace2('청주')">청주</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="place7" onclick="changePlace2('대전'); resv_detail();">대전</a>
+                    <div id="end_points" class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
+                        <script>end_function()</script>
                     </div>
                 </div>
             </div>
