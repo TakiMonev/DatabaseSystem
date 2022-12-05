@@ -23,7 +23,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script type='text/javascript'>
         var nowPos = "";
-        var station_name;
         function resv_detail() 
         {
             //const arrive = document.getElementById('ep');
@@ -36,23 +35,20 @@
                 }
             }
             
-            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/attractions");
+            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/route/all");
             
             xhttp.send();
             let txt = "";
 
             function jsonfunc( jsonText ) {
-            
+
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 //let txt = "";
                 window.alert(jsonText);
-                
                 for (let i = 0; i < json.length; i++)
                 {
-                        
-                        if(json[i]['stationName']==station_name){
-                            console.log(station_name);
-                             console.log(json[i]['stationName']);
+                    if (arrive === json["attrName"])
+                    {
                         txt += "<div class='place_area row' style='display: inline-block;'>";
                         txt += json[i]['attrName'];
                         txt += "</div>";
@@ -64,11 +60,49 @@
         
         }
 
+        function resv_detail2(ArrivalName, StationLocation) 
+        {
+            //const arrive = document.getElementById('ep');
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if(xhttp.readyState == 4 && xhttp.status == 200){
+                    //jsonfunc(this.responseText);
+                    jsonfunc(xhttp.responseText);
+                }
+            }
+            
+            xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/route/all");
+            
+            xhttp.send();
+            let txt = "";
+            
+            function jsonfunc( jsonText ) {
+                let json = JSON.parse(jsonText); // String -> json으로 변환
+                //let txt = "";
+                window.alert(jsonText);
+                for (let i = 0; i < json.length; i++)
+                {
+                    window.alert(StationLocation + " " + json['stationLocation'] + "\n" + ArrivalName + " " + json['arrivalName'])
+                    if (StationLocation === json["stationLocation"] && ArrivalName === json["arrivalName"])
+                    {
+                        showData(ArrivalName, StationLocation);
+                        //txt += "<div class='place_area row' style='display: inline-block;'>";
+                        //txt += json[i]['attrName'];
+                        //txt += "</div>";
+                    }
+                    //window.alert(arrive +  " " + json["arrivalName"]);
+                }
+                document.getElementById("near_station").innerHTML = txt;
+            }
+        
+        }
+
         function start_function()
         {
             const End = document.getElementById('start_points');
             let xhttp = new XMLHttpRequest();
-
+            
             xhttp.onreadystatechange = function () {
                 if(xhttp.readyState == 4 && xhttp.status == 200){
                     //jsonfunc(this.responseText);
@@ -79,21 +113,21 @@
             xhttp.send();
 
             function jsonfunc( jsonText ) {
-            
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 let txt = "";
 
-                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace(출발지 선택);">출발지 선택</a>`;
+                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace2(도착지 선택);">출발지 선택</a>`;
                 
                 for (let i = 0; i < json.length; i++)
                 {
                     let flag = 0;
                     for (let j = i + 1; j < json.length; j++)
                     {
-                        flag = j;
+                        if (json[i]['arrivalName'] === json[i]['arrivalName'])
+                            flag = 1;
                     }
 
-                    if (!flag)
+                    if (flag)
                         continue;
                     
                     txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp"`;
@@ -126,24 +160,30 @@
             
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 let txt = "";
+                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace(도착지 선택); resv_detail();">도착지 선택</a>`;
                 
-                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace2(도착지 선택); resv_detail();">도착지 선택</a>`;
-
                 for (let i = 0; i < json.length; i++)
                 {
                     let flag = 0;
                     for (let j = i + 1; j < json.length; j++)
                     {
-                            flag = j;
+                        if (json[i]['arrivalName'] === json[i]['arrivalName'])
+                            flag = 1;
                     }
-
-                    if (!flag)
+                    
+                    if (flag)
                         continue;
-
+                    
                     txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep"`;
                     txt += `onclick="changePlace2('`;
                     txt += json[i]['arrivalName'];
-                    txt += `'); resv_detail();">`;
+                    txt += `'); resv_detail2('`; 
+                    txt += json[i]['arrivalName']; 
+                    txt += "','";
+                    txt += json[i]['stationLocation'];
+                    txt += `');resv_detail(`;
+                    txt += json[i]['arrivalName'];
+                    txt += `);">`;
                     txt += json[i]['arrivalName'];
                     txt += "</a>";
                 }
@@ -177,6 +217,20 @@
             document.getElementById("near_station").innerHTML = "";
             const selected = document.getElementById('place_type2');
             
+            if (place === "대전역")
+            {
+                nowPos = "대전";
+            }
+
+            else if (place === "서울역")
+            {
+                nowPos = "서울";
+            }
+
+            else
+            {
+                nowPos = "";
+            }
 
             selected.innerHTML = place;
         }
