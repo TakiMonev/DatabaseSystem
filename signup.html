@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
+    <title>회원가입</titl></title>
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/login.css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -28,15 +28,11 @@
                     </button>
                 </div>
                 <div id="main-nav" class="collapse navbar-collapse navStyle">
-                    <ul class="nav navbar-nav" id="mainNav">
-                        <li class="active"><a href="#hero_section" class="scroll-link">Home</a></li>
-                        <li><a href="train-booking.html" class="scroll-link">Book Tickets</a></li>
-                        <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
-                        <li><a href="#service" class="scroll-link">Services</a></li>
-                        <li><a href="#station" class="scroll-link">STATION</a></li>
-                        <li><a href="#clients" class="scroll-link">Meals</a></li>
-                        <li><a href="#team" class="scroll-link">Team</a></li>
-                        <li><a href="#contact" class="scroll-link">Contact</a></li>
+                    <ul class="navbar" id="mainNav">
+                        <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                        <li><a href="place.html" class="scroll-link">관광지</a></li>
+                        <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
+                        <li><a href="card.html" class="scroll-link">카드</a></li>
                         <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
                     </ul>
                 </div>
@@ -49,51 +45,34 @@
 <body>
     <div class="my_body">
         <section class="login-form">
-            <form action="">
+            <form action="http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/signup">
                 <div class="int-area">
-                    <input type="text" name="id" id="id" autocomplete="off" required>
+                    <input type="text" name="username" id="id" autocomplete="off" required>
                     <label for="id">USER NAME</label>
                 </div>
                 <div class="int-area">
-                    <input type="text" name="Email_Address" id="Email_Address"required>
+                    <input type="text" name="Email" id="Email_Address"required>
                     <label for="Email_Address">Email_Address</label>
                 </div>
                 <div class="int-area">
-                    <input type="password" name="pw" id="pw" autocomplete="off" required>
+                    <input type="password" name="password" id="pw" autocomplete="off" required>
                     <label for="pw">PASSWORD</label>
                     
                 </div>
                 <div class="int-area">
-                    <h>학생이면 체크<input type="checkbox" id="check1">
+                    <h>학생이면 체크<input type="checkbox" name="isStudent" id="check1">
                         <label for="check1">
                         </label></h>
                 </div>
                 <div class="btn-area">
-                    <button id="btn" type="submit">회원가입</button>
+                    <button id="join" type="submit"><a href="./main.html">회원가입</a></button>
                 </div>
             </form>
         </section>
     </div>
 
     <script>       
-        let id = $('#id');
-        let pw = $('#pw');
-        let btn = $('#btn');
-        
-        $(btn).on('click', function() {
-            if($(id).val() == "") {
-                $(id).next('label').addClass('warning');
-                setTimeout(function() {
-                    $('label').removeClass('warning');
-                }, 1500);
-            }
-            else if($(pw).val() == "") {
-                $(pw).next('label').addClass('warning');
-                setTimeout(function() {
-                    $('label').removeClass('warning');
-                }, 1500);
-            }
-        });
+
     </script>           
 </body>
 

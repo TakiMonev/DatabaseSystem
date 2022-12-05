@@ -8,7 +8,7 @@
     <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="../css/login.css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
     
@@ -23,6 +23,59 @@
     
 </head>
 
+<script>
+function get_login() 
+{
+    let xhttp = new XMLHttpRequest();
+    window.alert('준비해이라');
+    //var token = localStorage.getItem("token");
+    $.ajax({
+        type: "POST",
+        url: "http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/login",
+        data: {
+            email: "test0@naver.com",
+            password: "test0"
+        },
+        beforeSend: function (xhr) {
+            //xhr.setRequestHeader("Content-type","application/json");
+            xhr.setRequestHeader("Authorization", "123");
+        },
+        success: function (res) {
+            console.log(res);
+            //document.getElementById('ttt').innerHTML = xhr.responseText;
+        },
+        error: function () {
+            window.alert("error");
+        }
+    });
+
+    window.alert("각오해이라");
+    xhttp.onreadystatechange = function () {
+        if(xhttp.readyState == 4 && xhttp.status == 200){
+            //jsonfunc(this.responseText);
+            jsonfunc(xhttp.responseText);
+        }
+    }
+    
+    window.alert("1");
+    xhttp.open("POST","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/login", true);
+    
+    window.alert("in");
+    xhttp.send();
+    
+    function jsonfunc( jsonText ) {
+
+        window.alert("hello" + jsonText);
+    
+        let json = JSON.parse(jsonText); // String -> json으로 변환
+        let txt = "";
+        
+        document.getElementById("ttt").innerHTML = jsonText;
+    }
+
+}
+</script>
+
 <!--Header_section-->
 <header id="header_wrapper">
     <div class="container">
@@ -36,15 +89,11 @@
                     </button>
                 </div>
                 <div id="main-nav" class="collapse navbar-collapse navStyle">
-                    <ul class="nav navbar-nav" id="mainNav">
-                        <li class="active"><a href="#hero_section" class="scroll-link">Home</a></li>
-                        <li><a href="train-booking.html" class="scroll-link">Book Tickets</a></li>
-                        <li><a href="#aboutUs" class="scroll-link">About Us</a></li>
-                        <li><a href="#service" class="scroll-link">Services</a></li>
-                        <li><a href="#station" class="scroll-link">STATION</a></li>
-                        <li><a href="#clients" class="scroll-link">Meals</a></li>
-                        <li><a href="#team" class="scroll-link">Team</a></li>
-                        <li><a href="#contact" class="scroll-link">Contact</a></li>
+                    <ul class="navbar" id="mainNav">
+                        <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                        <li><a href="plac.html" class="scroll-link">관광지</a></li>
+                        <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
+                        <li><a href="card.html" class="scroll-link">카드</a></li>
                         <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
                     </ul>
                 </div>
@@ -58,16 +107,20 @@
     <div class="my_body">
         <section class="login-form">
             <form action="">
+                <h1 style="font-size: 40px;">로그인</h1>
                 <div class="int-area">
-                    <input type="text" name="id" id="id" autocomplete="off" required>
+                    <input type="text" name="username" id="id" autocomplete="off" required>
                     <label for="id">USER NAME</label>
                 </div>
                 <div class="int-area">
-                    <input type="password" name="pw" id="pw" autocomplete="off" required>
+                    <input type="password" name="password" id="pw" autocomplete="off" required>
                     <label for="pw">PASSWORD</label>
                 </div>
                 <div class="btn-area">
-                    <button id="btn" type="submit">LOGIN</button>
+                    <button id="login_btn" type="submit" onclick="get_login()">로그인</button>
+                </div>
+                <div class="btn-area">
+                    <button id="btn" type="submit">회원 가입</button>
                 </div>
             </form>
            <!-- <div class="btn-area">
@@ -76,6 +129,7 @@
         </section>
     </div>
 
+    <!--
     <script>       
         let id = $('#id');
         let pw = $('#pw');
@@ -95,7 +149,9 @@
                 }, 1500);
             }
         });
-    </script>           
+    </script>    
+    -->
+    <h1 id="ttt">sdfsdfsdf</h1>       
 </body>
 
 <style type="text/css">
