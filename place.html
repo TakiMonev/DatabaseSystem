@@ -140,6 +140,11 @@
             height: 300px;
         }
 
+        .imgs {
+            width : 450px;
+            height: 250px;
+        }
+
 </style>
 
 <head>
@@ -218,7 +223,7 @@ function show_place() {
             txt += "<tr class='row col-md-4 col-sm-4'>"
             txt += "<th class='big_th'><a href='placeInfo.html'>"
             txt += json[i]['attrName'];
-            txt = txt + "<img src='./" + json[i]['attrName'] + ".jpg'></a></th></tr>"
+            txt = txt + "<img class='imgs' src='./" + json[i]['attrName'] + ".jpg'></a></th></tr>"
         }
         txt += "</table>"
         

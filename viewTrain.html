@@ -145,11 +145,30 @@
 </style>
 
 <body>
-    <div class="container header" style="background: url('./train.jpg') top center no-repeat;;">
-        <div class="row">
-            <h1 style="color: white;">기차타고 여행가자</h1>
+    <header id="header_wrapper">
+        <div class="container">
+            <div class="header_box">
+                <div class="logo"><a href="#"><img src="img/logo.png" alt="logo"></a></div>
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span
+                                class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="main-nav" class="collapse navbar-collapse navStyle">
+                        <ul class="navbar" id="mainNav">
+                            <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                            <li><a href="plac.html" class="scroll-link">관광지</a></li>
+                            <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
+                            <li><a href="card.html" class="scroll-link">카드</a></li>
+                            <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div>
+    </header>
     <div class="container" style="width: 600px; text-align:center;">
         <div class="row">
             <form class="d-flex" role="search">

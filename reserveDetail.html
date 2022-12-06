@@ -91,6 +91,9 @@
                              console.log(json[i]['stationName']);
                         txt += "<div class='place_area row' style='display: inline-block;'>";
                         txt += json[i]['attrName'];
+                        txt += "<img class='imgs' src='./"
+                        txt += json[i]['attrName'];
+                        txt += ".jpg'>";
                         txt += "</div>";
                         }
                     //window.alert(arrive +  " " + json["arrivalName"]);
@@ -119,7 +122,7 @@
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 let txt = "";
 
-                txt += `<a class="dropdown-item" style="display: block;" href="#" id="ep" onclick="changePlace(출발지 선택);">출발지 선택</a>`;
+                txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp" onclick="changePlace('출발지 선택');">출발지 선택</a>`;
                 
                 for (let i = 0; i < json.length; i++)
                 {
@@ -135,10 +138,10 @@
                     txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp"`;
                     txt += `onclick="changePlace('`;
                     txt += json[i]['departureName'];
-                    txt += `'); ">`;
+                    txt += `');">`;
                     txt += json[i]['departureName'];
                     txt += "</a>";
-                    station_name = json[i]['departureName'];
+                    //station_name = json[i]['departureName'];
                 }
                 document.getElementById("start_points").innerHTML = txt;
             }
@@ -222,6 +225,11 @@
 </head>
 
 <style>
+    .imgs {
+        width: 300px;
+        height: 150px;
+    }
+
     .header {
         display: flex;
         max-width: 100%;
@@ -371,7 +379,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row"><button class="btn btn-info" type="submit" style="font-size: 20px;">예약 완료</button></div>
+            <div class="row"><button id="confirm_resv" class="btn btn-info" type="submit" style="font-size: 20px;">예약 완료</button></div>
         </div>
 
     </div>

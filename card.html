@@ -147,6 +147,45 @@
         }
 </style>
 
+<script>
+    var url = "http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81";
+    function requestPostBodyJson(){
+    		// url 및 전송 데이터 선언
+
+            var data;
+            accessToken = localStorage.getItem('accessToken');
+
+    		// 전송 json 데이터 선언
+    		var jsonData = JSON.stringify({
+                "cardNumber": document.getElementById('card_num').value,
+                "cvc": document.getElementById('cvc').value,
+                "expirationDate": document.getElementById('expire').value,
+                "name": document.getElementById('card_name').value
+            });
+    		    		    		    		
+    		// XMLHttpRequest 객체 생성 및 요청 수행
+    		var xhr = new XMLHttpRequest();
+    		xhr.open("POST", url + '/card', true);
+            xhr.setRequestHeader("Content-Type", "application/json");    		
+    		
+            xhr.setRequestHeader('Authorization',"Bearer " + accessToken); 		
+    		xhr.onreadystatechange = function() {
+    			if (xhr.readyState === 4) {
+    				if (xhr.status === 200 || xhr.status == 201){
+                        
+                        localStorage.setItem('accessToken', jsonData.accessToken)
+                        location.href='main.html';
+    				}
+    				else {
+                        window.alert('fail');
+    				}						    				
+    			}    			
+    		}
+    		xhr.send(jsonData); //post body json 방식 일때    					    		    		
+									
+    	};
+</script>
+
 <header id="header_wrapper">
     <div class="container">
         <div class="header_box">
@@ -178,11 +217,11 @@
         <div id="card_form">
             <form id="card" style="font-size: 30px;">
                 <br>
-                카드 번호 : <input type="text"><br><br>
-                CVC (3자리) : <input type="text"><br><br>
-                이름 : <input type="text"><br><br>
-                만료일 : <input type="text"><br><br>
-                <button type="card_confirm" class="btn btn-info" style="width: 200px; height: 50px; font-size: 30px;">카드 등록</button>
+                카드 번호 : <input type="text" id="card_num" value=""><br><br>
+                CVC (3자리) : <input type="text" id="cvc" value=""><br><br>
+                이름 : <input type="text" id="card_name" value=""><br><br>
+                만료일 : <input type="text" id="expire" value=""><br><br>
+                <button type="button" onclick="requestPostBodyJson()" id="card_confirm" class="btn btn-info" style="width: 200px; height: 50px; font-size: 30px;">카드 등록</button>
             </form>
         </div>
     </div>      
