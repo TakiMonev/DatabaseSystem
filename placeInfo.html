@@ -114,15 +114,130 @@
         border: solid;
         border-width: 100%;
     }
+
+    .my_picture {
+        width: 600px;
+        height: 400px;
+    }
+
+    .my_comment {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        align-items: center;
+    }
 </style>
 
 <script>
+    var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
+    
+    function showing() {
+    let xhttp = new XMLHttpRequest();
 
+    xhttp.onreadystatechange = function () {
+        if(xhttp.readyState == 4 && xhttp.status == 200){
+            //jsonfunc(this.responseText); //this = xhttp
+            jsonfunc(xhttp.responseText); // 둘다 가능
+        }
+    }
+    xhttp.open("GET", url + "/attractions", true);
+    xhttp.send();
+    
+    function jsonfunc( jsonText ) {
+        let json = JSON.parse(jsonText); // String -> json으로 변환
+        let txt = "";
+        const pd = JSON.parse(localStorage.getItem('placeDetail'));
+        
+        for (let i = 0; i < json.length; i++)
+        {
+            if (pd.placeInfo === json[i]['attrName'])
+            {
+                txt += "<img src=./" + pd.placeInfo + ".jpg alt='example' class='my_area my_picture' style='padding: 0px;'><p>소개</p>";
+                txt += `<div class="form-outline">`;
+                txt += `<textarea class="form-control my_text" id="textArea1" rows="10" readonly>`;
+                txt += json[i]['detail'];
+                txt += "</textarea></div>";
+            }
+        }
+        
+        document.getElementById('place_area').innerHTML = txt;
+    }
+}
+
+function show_comments()
+{
+    let xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function () {
+        if(xhttp.readyState == 4 && xhttp.status == 200){
+            //jsonfunc(this.responseText); //this = xhttp
+            jsonfunc(xhttp.responseText); // 둘다 가능
+        }
+    }
+    xhttp.open("GET", url + "/attractions", true);
+    xhttp.send();
+    
+    function jsonfunc( jsonText ) {
+        let json = JSON.parse(jsonText); // String -> json으로 변환
+        let txt = "";
+        const pd = JSON.parse(localStorage.getItem('placeDetail'));
+        
+        for (let i = 0; i < json.length; i++)
+        {
+            if (pd.placeInfo === json[i]['attrName'])
+            {
+                txt += "<img src=./" + pd.placeInfo + ".jpg alt='example' class='my_area my_picture' style='padding: 0px;'><p>소개</p>";
+                txt += `<div class="form-outline">`;
+                txt += `<textarea class="form-control my_text" id="textArea1" rows="10" readonly>`;
+                txt += json[i]['detail'];
+                txt += "</textarea></div>";
+            }
+        }
+        
+        document.getElementById('place_area').innerHTML = txt;
+    }
+}
+
+function check_login()
+{
+    if (localStorage.getItem('email') === "")
+    {
+        window.alert("로그인 하세요");
+        location.href('./login.html')
+    }
+
+    else
+    {
+        const data = JSON.stringify({
+            comment: document.getElementById('comment_area').value,
+            id: localStorage.getItem('email'),
+            rating: document.getElementById('star_hidden').value,
+            username: localStorage.getItem('username')
+        });
+
+        window.alert(data);
+
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url + '/review' + localStorage.getItem('email'), true); 
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(data);
+    }
+}
+
+function set_rating(star)
+{
+    const star_hidden = document.getElementById('star_hidden');
+    const star_visible = document.getElementById('rating_select');
+    star_visible.innerHTML = "별점(" + star + ")";
+    star_hidden.value = star;
+}
 </script>
 
 <body>
     <div class="my_body">
-        <div class="row col-md-6 col-sm-6 my_area">
+        <div id="place_area" class="row col-md-6 col-sm-6 my_area">
+            <script>showing()</script>
+            <!--
             <img src="place.jpg" alt="example" class="my_area" style="padding: 0px;">
             <p>소개</p>
             <div class="form-outline">
@@ -134,13 +249,15 @@
 너와 내 맘에 살아 숨 쉴 테니
                 </textarea>
             </div>
+        -->
         </div>
         
         <div class="row col-md-4 col-sm-4">
             <h1 style="font-weight: bold; margin-bottom: 20px; display: block;">리뷰</h1>
             <div class="reviews">
                 <table class="border=1" style="width: 100%;">
-                    <tr class="review_info">
+                    <script>show_comments()</script>
+                    <!-- <tr class="review_info">
                         <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 껍질을 깨뜨려버리자</th>
                     </tr>
                     <tr class="review_info">
@@ -163,11 +280,34 @@
                     </tr>
                     <tr class="review_info">
                         <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 무모하대도 믿어 난</th>
-                    </tr>
+                    </tr> -->
                 </table>
             </div>
         </div>
+    </div>
+    
+    <div class="col-md-10 col-sm-10 my_comment" style="float:none;margin:auto;">
+        <h1>댓글</h1>
+        <input type="hidden" id="star_hidden" value="5">
+        <div id="rating_menu" class="dropdown" style="font-size: 20px;">
+            <button id="rating_select" class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                별점(5)
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" onclick="set_rating(1)">별점(1)</a>
+                <a class="dropdown-item" onclick="set_rating(2)">별점(2)</a>
+                <a class="dropdown-item" onclick="set_rating(3)">별점(3)</a>
+                <a class="dropdown-item" onclick="set_rating(4)">별점(4)</a>
+                <a class="dropdown-item" onclick="set_rating(5)">별점(5)</a>
+            </div>
+        </div>
+        <textarea class="form-control" id="comment_area" rows="5">
 
+        </textarea>
+        <button type="button" onclick="check_login()" class="btn btn-info main_btn" style="justify-content:center; float:right">
+            댓글 등록
+        </button>
+        <br>
     </div>
 </body>
 <!--Header_section-->

@@ -199,17 +199,24 @@
 
 <script type="text/javascript">
 
+function set_place(Place)
+{
+    localStorage.setItem('placeDetail', JSON.stringify({ placeInfo: Place }))
+    //window.alert(JSON.parse(localStorage.getItem('placeDetail')).placeInfo);
+    return false;
+}
+
 function show_place() {
+    var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
     let xhttp = new XMLHttpRequest();
     
     xhttp.onreadystatechange = function () {
         if(xhttp.readyState == 4 && xhttp.status == 200){
             //jsonfunc(this.responseText); //this = xhttp
             jsonfunc(xhttp.responseText); // 둘다 가능
-            //window.alert(xttp.responseText);
         }
     }
-    xhttp.open("GET","http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/attractions", true);
+    xhttp.open("GET", url + "/attractions", true);
     xhttp.send();
     
     function jsonfunc( jsonText ) {
@@ -221,12 +228,11 @@ function show_place() {
         for (let i = 0; i < json.length; i++)
         {
             txt += "<tr class='row col-md-4 col-sm-4'>"
-            txt += "<th class='big_th'><a href='placeInfo.html'>"
+            txt += "<th class='big_th'><a href='placeInfo.html'"
+            txt += "onclick=set_place('" + json[i]['attrName'] + "')>";
             txt += json[i]['attrName'];
-            txt = txt + "<img class='imgs' src='./" + json[i]['attrName'] + ".jpg'></a></th></tr>"
+            txt += "<img class='imgs' src='./" + json[i]['attrName'] + ".jpg'></a></th></tr>";
         }
-        txt += "</table>"
-        
         document.getElementById('place_init').innerHTML = txt;
     }
 }
