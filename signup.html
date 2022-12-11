@@ -58,7 +58,7 @@ function get_signup(form)
     });
 
     var xhr = new XMLHttpRequest();
-    xhr.open("POST", url, true); 
+    xhr.open("POST", url + '/signup', true); 
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.onreadystatechange = function () {
         if (xhr.readyState === xhr.DONE) {
@@ -70,7 +70,6 @@ function get_signup(form)
                 localStorage.setItem('email',email)
 
                 location.href='main.html';
-                alert(localStorage.getItem('accessToken'));
             }
             else {
                 alert("아이디 또는 비밀번호를 다시 확인하시오.")

@@ -25,6 +25,13 @@
         var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
         var nowPos = "";
         var station_name;
+        var spv = "";
+        var epv = "";
+        var s_time = "";
+        var e_time = "";
+        var seat_class = "";
+        var train_id = 0;
+
         function resv_detail() 
         {
             //const arrive = document.getElementById('ep');
@@ -48,15 +55,14 @@
                 //let txt = "";
                 
                 for (let i = 0; i < json.length; i++)
-                {
-                        
-                        if(json[i]['stationName']==station_name){
-                            console.log(station_name);
-                             console.log(json[i]['stationName']);
-                        txt += "<div class='place_area row' style='display: inline-block;'>";
-                        txt += json[i]['attrName'];
-                        txt += "</div>";
-                        }
+                {              
+                    if(json[i]['stationName'] === station_name){
+                        console.log(station_name);
+                            console.log(json[i]['stationName']);
+                    txt += "<div class='place_area row' style='display: inline-block;'>";
+                    txt += json[i]['attrName'];
+                    txt += "</div>";
+                    }
                     //window.alert(arrive +  " " + json["arrivalName"]);
                 }
                 document.getElementById("near_station").innerHTML = txt;
@@ -88,7 +94,7 @@
 
                 for (let i = 0; i < json.length; i++)
                 {
-                        if(json[i]['stationName']==StationName){
+                        if(json[i]['stationName'] === StationName){
                              console.log(json[i]['stationName']);
                         txt += "<div class='place_area row' style='display: inline-block;'>";
                         txt += json[i]['attrName'];
@@ -106,40 +112,39 @@
 
         function start_function()
         {
-            const End = document.getElementById('start_points');
+            //const End = document.getElementById('start_points');
             let xhttp = new XMLHttpRequest();
-
             xhttp.onreadystatechange = function () {
                 if(xhttp.readyState == 4 && xhttp.status == 200){
                     //jsonfunc(this.responseText);
                     jsonfunc(xhttp.responseText);
                 }
             }
-            xhttp.open("GET", url + "route/all");
+            xhttp.open("GET", url + "/route/all");
             xhttp.send();
-
+            
             function jsonfunc( jsonText ) {
             
                 let json = JSON.parse(jsonText); // String -> json으로 변환
                 let txt = "";
 
-                txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp" onclick="changePlace('출발지 선택');">출발지 선택</a>`;
+                txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp1" onclick="changePlace('출발지 선택');">출발지 선택</a>`;
                 
                 for (let i = 0; i < json.length; i++)
                 {
                     let flag = 0;
                     for (let j = i + 1; j < json.length; j++)
                     {
-                        flag = j;
+                        flag = 1;
                     }
 
                     if (!flag)
                         continue;
                     
-                    txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp"`;
+                    txt += `<a class="dropdown-item" style="display: block;" href="#" id="sp2"`;
                     txt += `onclick="changePlace('`;
                     txt += json[i]['departureName'];
-                    txt += `');">`;
+                    txt += `'); set_class();">`;
                     txt += json[i]['departureName'];
                     txt += "</a>";
                     //station_name = json[i]['departureName'];
@@ -185,7 +190,7 @@
                     txt += json[i]['arrivalName'];
                     txt += `'); resv_detail2('`;
                     txt += json[i]['arrivalName'];
-                    txt += `');">`;
+                    txt += `'); set_class();">`;
                     txt += json[i]['arrivalName'];
                     txt += "</a>";
                 }
@@ -193,18 +198,107 @@
             }
         }
 
-        function changeMenu(price)
+        function class_name(seatClass)
         {
-            document.getElementById("near_station").innedrHTML = "";
-            const selected = document.getElementById('navbarDropdown');
-            selected.innerHTML = price; 
+            seat_class = seatClass;
         }
 
-        function changeMenu2(num_of_bags)
+        function set_class()
         {
-            document.getElementById("near_station").innerHTML = "";
-            const selected = document.getElementById('navbarDropdown2');
-            selected.innerHTML = num_of_bags;
+            let xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function () {
+                if(xhttp.readyState == 4 && xhttp.status == 200){
+                    //jsonfunc(this.responseText);
+                    jsonfunc(xhttp.responseText);
+                }
+            }
+            xhttp.open("GET", url + "/route/all");
+            xhttp.send();
+
+            function jsonfunc( jsonText ) {
+            
+                let json = JSON.parse(jsonText); // String -> json으로 변환
+                let txt = "";
+                
+                for (let i = 0; i < json.length; i++)
+                {
+                    if (json[i]['departureName'] === spv && json[i]['arrivalName'] === epv) {
+                    s_time = json[i]['departureTime'];
+                    e_time = json[i]['arrivalTime'];
+                    set_time();
+
+                    txt += `<a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="class_name('first'); changeMenu('`
+                    txt += json[i]['firstClassPrice'];
+                    txt += `');` + `changeId(` + json[i]['id'] + `);">`;
+                    txt += json[i]['firstClassPrice'] + "</a>";
+                    txt += `<a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="class_name('second'); changeMenu('`
+                    txt += json[i]['secondClassPrice'];
+                    txt += `');` + `changeId(` + json[i]['id'] + `);">`;
+                    txt += json[i]['secondClassPrice'] + "</a>";
+                    }
+
+                    document.getElementById("select_class").innerHTML = txt;
+                }
+            }
+        }
+
+        function set_time()
+        {
+            const train_time = document.getElementById('times');
+            let txt = "";
+
+            txt += "<p id='start_time'>출발 시간 : " + s_time + "</p>";
+            txt += "<p id='end_time'>도착 시간 : " + e_time + "</p>";
+
+            train_time.innerHTML = txt;
+        }
+
+        function resv_ticket()
+        {
+            //var card_data = {};
+            var resv_data;
+            var accessToken = localStorage.getItem('accessToken');
+
+            resv_data = JSON.stringify({
+                cardId: localStorage.getItem('cardNumber'),
+                clas: seat_class,
+                price: document.getElementById('select_class_button').innerHTML,
+                routeId: train_id
+            });
+
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.open("POST", url + '/ticket', true);
+            xhttp.setRequestHeader('Content-Type', 'application/json');
+
+            xhttp.onreadystatechange = function () {
+                if (xhttp.readyState === xhttp.DONE) {
+                    if (xhttp.status === 200) {
+                        console.log("reserving ticket")
+                    }
+                    else
+                    {
+                        console.log("failed reservating")
+                    }
+                }
+            }
+            console.log(resv_data);
+            xhttp.send(JSON.parse(resv_data));
+
+            location.href = './main.html'
+        }
+
+        function changeId(idNum)
+        {
+            train_id = idNum;
+        }
+
+        function changeMenu(price)
+        {
+            //document.getElementById("near_station").innerHTML = "";
+            const selected = document.getElementById('select_class_button');
+            selected.innerHTML = price; 
         }
 
         function changePlace(place)
@@ -212,15 +306,17 @@
             document.getElementById("near_station").innerHTML = "";
             const selected = document.getElementById('place_type');
             selected.innerHTML = place;
+            spv = place;
+            set_time();
         }
 
         function changePlace2(place)
         {
             document.getElementById("near_station").innerHTML = "";
             const selected = document.getElementById('place_type2');
-            
-
             selected.innerHTML = place;
+            epv = place;
+            set_time();
         }
     </script>
 </head>
@@ -324,11 +420,7 @@
             <p>소개</p>
             <div class="form-outline">
                 <textarea class="form-control my_text" id="textArea1" rows="10" readonly>
-저기 사라진 별의 자리 &#10;아스라이 하얀 빛
-한동안은 꺼내 볼 수 있을 거야
-아낌없이 반짝인 시간은
-조금씩 옅어져 가더라도
-너와 내 맘에 살아 숨 쉴 테니
+기차 예약 페이지입니다
                 </textarea>
             </div>
         </div>
@@ -355,32 +447,24 @@
             </div>
         </div>
         <div class="row col-md-4 col-sm-4 my_area">
-            <p id="start_time">출발 시간 :</p>
-            <p id="end_time">도착 시간 :</p>
+            <div id="times">
+            
+            </div>
             <div class="drop_down_area">
                 <div class="nav-item dropdown">
-                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true">
+                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="select_class_button" role="button" data-toggle="dropdown" aria-haspopup="true">
                         클래스(가격) 선택
                     </button>
-                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
-                        <a class="dropdown-item" style="display: block;;" href="#" id="price0" onclick="changeMenu('클래스(가격) 선택')">클래스(가격) 선택</a>
+                    <div class="dropdown-menu" id="select_class" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
+                        <!-- <a class="dropdown-item" style="display: block;" href="#" id="price0" onclick="changeMenu('클래스(가격) 선택')">클래스(가격) 선택</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="changeMenu('10000원')">10000원</a>
                         <a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="changeMenu('20000원')">20000원</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="price3" onclick="changeMenu('30000원')">30000원</a>
-                    </div>
-                </div>
-                <div class="nav-item dropdown">
-                    <button class="btn btn-area nav-link dropdown-toggle" style="width: 200px !important; font-size: 20px;" href="#" id="navbarDropdown2" role="button" data-toggle="dropdown" aria-haspopup="true">
-                        가방수 선택
-                    </button>
-                    <div class="dropdown-menu" id="method_type" aria-labelledby="navbarDropdownMenuLink" style="font-size: 20px;">
-                        <a class="dropdown-item" style="display: block;" href="#" id="price0" onclick="changeMenu2('가방수 선택')">가방수 선택</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="price1" onclick="changeMenu2('1')">1</a>
-                        <a class="dropdown-item" style="display: block;" href="#" id="price2" onclick="changeMenu2('2')">2</a>
+                        <a class="dropdown-item" style="display: block;" href="#" id="price3" onclick="changeMenu('30000원')">30000원</a> -->
+                        <script>set_class()</script>
                     </div>
                 </div>
             </div>
-            <div class="row"><button id="confirm_resv" class="btn btn-info" type="submit" style="font-size: 20px;">예약 완료</button></div>
+            <div class="row"><button id="confirm_resv" class="btn btn-info" type="button" onclick="resv_ticket()" style="font-size: 20px;">예약 완료</button></div>
         </div>
 
     </div>

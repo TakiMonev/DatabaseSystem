@@ -148,7 +148,7 @@
 </style>
 
 <script>
-    var url = "http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81";
+    var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
     function requestPostBodyJson(){
     		// url 및 전송 데이터 선언
 
@@ -173,7 +173,7 @@
     			if (xhr.readyState === 4) {
     				if (xhr.status === 200 || xhr.status == 201){
                         
-                        localStorage.setItem('accessToken', jsonData.accessToken)
+                        //localStorage.setItem('accessToken', jsonData.accessToken)
                         location.href='main.html';
     				}
     				else {
