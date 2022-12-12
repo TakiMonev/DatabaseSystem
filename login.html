@@ -45,7 +45,7 @@ function get_ticket()
                 localStorage.setItem('cardNumber', cardNum)
             }
             else {
-                window.alert('setting cardNumber failed');
+                //window.alert('setting cardNumber failed');
             }						    				
         }    			
     }
@@ -70,9 +70,9 @@ function get_login(form)
             if (xhr.status === 200) { 
                 var data=JSON.parse(xhr.response);
                 
-                localStorage.setItem('accessToken',data.accessToken)
-                localStorage.setItem('username',data.username)
-                localStorage.setItem('email',email)
+                localStorage.setItem('accessToken', data.accessToken)
+                localStorage.setItem('username', data.username)
+                localStorage.setItem('email', email)
 
                 location.href='main.html';
             }

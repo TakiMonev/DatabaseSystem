@@ -98,7 +98,7 @@
                              console.log(json[i]['stationName']);
                         txt += "<div class='place_area row' style='display: inline-block;'>";
                         txt += json[i]['attrName'];
-                        txt += "<img class='imgs' src='./"
+                        txt += "<img class='imgs' src='./images/"
                         txt += json[i]['attrName'];
                         txt += ".jpg'>";
                         txt += "</div>";
@@ -260,10 +260,12 @@
             var resv_data;
             var accessToken = localStorage.getItem('accessToken');
 
+            console.log(localStorage.getItem('accessToken'));
+
             resv_data = JSON.stringify({
-                cardId: localStorage.getItem('cardNumber'),
+                cardId: Number(localStorage.getItem('cardNumber')),
                 clas: seat_class,
-                price: document.getElementById('select_class_button').innerHTML,
+                price: Number(document.getElementById('select_class_button').innerHTML),
                 routeId: train_id
             });
 
@@ -271,22 +273,25 @@
 
             xhttp.open("POST", url + '/ticket', true);
             xhttp.setRequestHeader('Content-Type', 'application/json');
+            xhttp.setRequestHeader('Authorization',"Bearer " + accessToken);
 
             xhttp.onreadystatechange = function () {
-                if (xhttp.readyState === xhttp.DONE) {
-                    if (xhttp.status === 200) {
-                        console.log("reserving ticket")
+                if (xhttp.readyState === 4) {
+                    if (xhttp.status === 200 || xhttp.status === 201) {
+                        console.log("reserving ticket");
+                        localStorage.setItem('train_id' + train_id, train_id);
+                        localStorage.setItem('train_class', seat_class);
                     }
                     else
                     {
-                        console.log("failed reservating")
+                        console.log("카드 번호를 입력하세요");
                     }
                 }
             }
             console.log(resv_data);
-            xhttp.send(JSON.parse(resv_data));
+            xhttp.send(resv_data);
 
-            location.href = './main.html'
+            //location.href = './main.html'
         }
 
         function changeId(idNum)

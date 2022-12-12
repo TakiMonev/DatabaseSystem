@@ -83,7 +83,8 @@ function get_signup(form)
 <body>
     <div class="my_body">
         <section class="login-form">
-            <form action="http://ec2-43-201-47-225.ap-northeast-2.compute.amazonaws.com:81/signup">
+            <!-- <form action="http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81/signup"> -->
+            <form>
                 <div class="int-area">
                     <input type="text" name="username" id="id" autocomplete="off" required>
                     <label for="id">USER NAME</label>
@@ -103,7 +104,7 @@ function get_signup(form)
                         </label></h>
                 </div>
                 <div class="btn-area">
-                    <button id="join" type="submit"><a href="./main.html">회원가입</a></button>
+                    <button id="join" type="button" onclick="get_signup()"><a href="./main.html">회원가입</a></button>
                 </div>
             </form>
         </section>
