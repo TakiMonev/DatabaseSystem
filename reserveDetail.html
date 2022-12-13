@@ -259,28 +259,49 @@
             //var card_data = {};
             var resv_data;
             var accessToken = localStorage.getItem('accessToken');
+            var c_id;
+            //console.log(localStorage.getItem('accessToken'));
 
-            console.log(localStorage.getItem('accessToken'));
+            var xhttp0 = new XMLHttpRequest();
 
-            resv_data = JSON.stringify({
-                cardId: Number(localStorage.getItem('cardNumber')),
-                clas: seat_class,
-                price: Number(document.getElementById('select_class_button').innerHTML),
-                routeId: train_id
-            });
+            xhttp0.open("GET", url + '/card', true);
+            xhttp0.setRequestHeader('Content-Type', 'application/json');
+            xhttp0.setRequestHeader('Authorization',"Bearer " + accessToken);
 
-            var xhttp = new XMLHttpRequest();
+            xhttp0.onreadystatechange = function () {
+                if (xhttp0.readyState === 4) {
+                    if (xhttp0.status === 200 || xhttp0.status === 201) {
+                        var jsonData = JSON.parse(xhttp0.responseText);
 
-            xhttp.open("POST", url + '/ticket', true);
-            xhttp.setRequestHeader('Content-Type', 'application/json');
-            xhttp.setRequestHeader('Authorization',"Bearer " + accessToken);
+                        console.log("getting card information...");
+                        c_id = jsonData[0]['cardNumber'];
 
-            xhttp.onreadystatechange = function () {
-                if (xhttp.readyState === 4) {
-                    if (xhttp.status === 200 || xhttp.status === 201) {
-                        console.log("reserving ticket");
-                        localStorage.setItem('train_id' + train_id, train_id);
-                        localStorage.setItem('train_class', seat_class);
+                        resv_data = JSON.stringify({
+                            cardId: c_id,
+                            clas: seat_class,
+                            price: Number(document.getElementById('select_class_button').innerHTML),
+                            routeId: train_id
+                        });
+
+                        var xhttp = new XMLHttpRequest();
+
+                        xhttp.open("POST", url + '/ticket', true);
+                        xhttp.setRequestHeader('Content-Type', 'application/json');
+                        xhttp.setRequestHeader('Authorization',"Bearer " + accessToken);
+
+                        xhttp.onreadystatechange = function () {
+                            if (xhttp.readyState === 4) {
+                                if (xhttp.status === 200 || xhttp.status === 201) {
+                                    console.log("reserving ticket...");
+                                }
+                                else
+                                {
+                                    console.log("카드 번호를 입력하세요");
+                                }
+                            }
+                        }
+                        console.log(resv_data);
+                        xhttp.send(resv_data);
                     }
                     else
                     {
@@ -288,10 +309,10 @@
                     }
                 }
             }
-            console.log(resv_data);
-            xhttp.send(resv_data);
-
-            //location.href = './main.html'
+            xhttp0.send();
+            
+            window.alert('예약이 완료되었습니다.')
+            location.replace('./main.html')
         }
 
         function changeId(idNum)
@@ -404,6 +425,7 @@
                 <div id="main-nav" class="collapse navbar-collapse navStyle">
                     <ul class="navbar" id="mainNav">
                         <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                        <li><a href="nowResv.html" class="scroll-link">현황</a></li>
                         <li><a href="place.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserve.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
@@ -469,7 +491,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row"><button id="confirm_resv" class="btn btn-info" type="button" onclick="resv_ticket()" style="font-size: 20px;">예약 완료</button></div>
+            <div class="row"><button id="confirm_resv" class="btn btn-info" type="button" onclick="resv_ticket();" style="font-size: 20px;">예약 완료</button></div>
         </div>
 
     </div>

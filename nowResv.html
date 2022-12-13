@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>현황</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
+    
+    <script src="../lib/jquery-3.6.0.min.js"></script>
+    
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    
+</head>
+
+<!--Header_section-->
+<header id="header_wrapper">
+    <div class="container">
+        <div class="header_box">
+            <div class="logo"><a href="#"><img src="img/logo.png" alt="logo"></a></div>
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" id="nav-toggle" class="navbar-toggle" data-toggle="collapse"
+                        data-target="#main-nav"> <span class="sr-only">Toggle navigation</span> <span
+                            class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div id="main-nav" class="collapse navbar-collapse navStyle">
+                    <ul class="navbar" id="mainNav">
+                        <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                        <li><a href="nowResv.html" class="scroll-link">현황</a></li>
+                        <li><a href="place.html" class="scroll-link">관광지</a></li>
+                        <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
+                        <li><a href="card.html" class="scroll-link">카드</a></li>
+                        <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
+
+    function ticket_count()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url + '/customer/ticketCount', true); 
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === xhr.DONE) {
+                if (xhr.status === 200) { 
+                    var jsonTicket = JSON.parse(xhr.responseText);
+                    var txt = "";
+                    
+                    for (let i = 0; i < jsonTicket.length; i++)
+                    {
+                        console.log("유저 수 : " + jsonTicket.length);
+                        txt += "<div><h2 style='text-align:left;'>유저 이름 : " + jsonTicket[i]['username'] + "</h2></div>";
+                        txt += "<div><h2 style='text-align:left;'>티켓 갯수 : " + jsonTicket[i]['ticketCount'] + "</h2><br></div>";
+                    }
+                    document.getElementById('all_users').innerHTML = txt;
+                }
+                else {
+                    console.log('실패');
+                }
+            }
+        }
+        xhr.send();
+    }
+
+    function user_count()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", url + '/customer/ticket/allCount', true); 
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === xhr.DONE) {
+                if (xhr.status === 200) { 
+                    var jsonTicket = JSON.parse(xhr.responseText);
+                    var txt = "";
+
+                    txt += "<h1>총합 유저수 : " + jsonTicket['customerCount'];
+                    txt += " 총 티켓 수 : " + jsonTicket['ticketCount'] + "</h1>";
+
+                    document.getElementById('total').innerHTML = txt;
+                }
+                else {
+                    console.log('실패');
+                }
+            }
+        }
+        xhr.send();
+    }
+</script>
+
+<body>
+    <div id="all_users" style="display: block; text-align: left; align-items: left;">
+        <script>ticket_count()</script>
+    </div>
+    
+    <div id="total" style="display: block; border: solid;">
+        <script>user_count()</script>
+    </div>
+</body>
+
+</html>

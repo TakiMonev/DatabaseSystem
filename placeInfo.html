@@ -38,6 +38,7 @@
                 <div id="main-nav" class="collapse navbar-collapse navStyle">
                     <ul class="navbar" id="mainNav">
                         <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                        <li><a href="nowResv.html" class="scroll-link">현황</a></li>
                         <li><a href="place.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
@@ -181,11 +182,11 @@ function show_comments()
     xhttp.setRequestHeader('Content-Type', 'application/json');
     xhttp.setRequestHeader('Authorization',"Bearer " + accessToken);
     //xhttp.send();
-    
+
     function jsonfunc( jsonText ) {
         let json = JSON.parse(jsonText); // String -> json으로 변환
         let txt = "";
-
+        
         for (let i = 0; i < json.length; i++)
         {
             txt += `<tr class="review_info" style="border: solid;">`;
@@ -206,7 +207,7 @@ function check_login()
     if (localStorage.getItem('email') === "")
     {
         window.alert("로그인 하세요");
-        location.href('./login.html')
+        location.replace('./login.html');
     }
 
     else
@@ -318,7 +319,7 @@ function set_rating(star)
         <textarea class="form-control" id="comment_area" rows="5">
 
         </textarea>
-        <button type="button" onclick="check_login(); location.href='./placeInfo.html';" class="btn btn-info main_btn" style="justify-content:center; float:right">
+        <button type="button" onclick="check_login(); location.replace('./placeInfo.html');" class="btn btn-info main_btn" style="justify-content:center; float:right">
             댓글 등록
         </button>
         <br>

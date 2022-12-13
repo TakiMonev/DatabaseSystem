@@ -138,6 +138,28 @@
 <script>
     var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
 
+    function canceling(ticket_id)
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", url + '/ticket/' + ticket_id, true); 
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === xhr.DONE) {
+                if (xhr.status === 200) { 
+                    location.replace('./myPage.html');
+                }
+                else {
+                    console.log('실패');
+                }
+            }
+        }
+        xhr.send();
+    }
+
     function user_info()
     {
         var userDiv = document.getElementById('user_div');
@@ -151,7 +173,7 @@
         var accessToken = localStorage.getItem('accessToken');
         
         var xhr = new XMLHttpRequest();
-        xhr.open("GET", url + '/route/all', true); 
+        xhr.open("GET", url + '/ticket', true); 
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
 
@@ -163,19 +185,15 @@
 
                     for (let i = 0; i < jsonData.length; i++)
                     {
-                        t_id = jsonData[i]['id'];
+                        var t_class = localStorage.getItem('train_class') + "ClassPrice";
+                        console.log(t_class);
 
-                        if (t_id)
-                        {
-                            var t_class = localStorage.getItem('train_class') + "ClassPrice";
-                            console.log(t_class);
+                        txt += "<p>" + jsonData[i]['departureName'] + "->" + jsonData[i]['arrivalName'];
+                        txt += " " + jsonData[i]['price'] + "원";
+                        txt += `<button type="button" onclick="canceling(` + jsonData[i]['ticketId'];
+                        txt += `)" class="btn btn-danger" style="inline-block; margin-left: 15px;">`
+                        txt += "취소</button></p>"
 
-                            txt += "<p>" + jsonData[i]['departureName'] + "->" + jsonData[i]['arrivalName'];
-                            txt += " " + jsonData[i][t_class] + "원";
-                            txt += `<button type="button" onclick="delete(` + jsonData[i]['id'];
-                            txt += `)" class="btn btn-danger" style="inline-block; margin-left: 15px;">`
-                            txt += "취소</button></p>"
-                        }
                     }
 
                     trainReserved.innerHTML += txt;
@@ -232,6 +250,7 @@
                 <div id="main-nav" class="collapse navbar-collapse navStyle">
                     <ul class="navbar" id="mainNav">
                         <li class="active"><a href="main.html" class="scroll-link">홈</a></li>
+                        <li><a href="nowResv.html" class="scroll-link">현황</a></li>
                         <li><a href="place.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
