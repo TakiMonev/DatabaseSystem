@@ -22,6 +22,33 @@
     
 </head>
 
+<script>
+    function logout()
+    {
+        accessToken = localStorage.setItem("accessToken", "");
+    }
+
+    function in_out()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        var txt = "";
+
+        if (accessToken === "")
+        {
+            txt += `<li><a href="login.html" class="scroll-link">Login | Signup</a></li>`
+
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+
+        else
+        {
+            txt += `<li><a href="main.html" class="scroll-link" onclick="logout();">로그아웃</a></li>`
+            
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+    }
+</script>
+
 <!--Header_section-->
 <header id="header_wrapper">
     <div class="container">
@@ -41,7 +68,9 @@
                         <li><a href="plac.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
-                        <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                        <div id="log_in_out">
+                            <script>in_out()</script>
+                        </div>
                     </ul>
                 </div>
             </nav>

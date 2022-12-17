@@ -136,6 +136,33 @@
 </style>
 
 <script>
+    function logout()
+    {
+        accessToken = localStorage.setItem("accessToken", "");
+    }
+
+    function in_out()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        var txt = "";
+
+        if (accessToken === "")
+        {
+            txt += `<li><a href="login.html" class="scroll-link">Login | Signup</a></li>`
+
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+
+        else
+        {
+            txt += `<li><a href="main.html" class="scroll-link" onclick="logout();">로그아웃</a></li>`;
+            
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+    }
+</script>
+
+<script>
     var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
 
     function canceling(ticket_id)
@@ -254,7 +281,9 @@
                         <li><a href="place.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
-                        <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                        <div id="log_in_out">
+                            <script>in_out()</script>
+                        </div>
                     </ul>
                 </div>
             </nav>

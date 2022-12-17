@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<style>
+    .name_ticket {
+        font-size: 20px;
+    }
+</style>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +30,33 @@
     
 </head>
 
+<script>
+    function logout()
+    {
+        accessToken = localStorage.setItem("accessToken", "");
+    }
+
+    function in_out()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        var txt = "";
+
+        if (accessToken === "")
+        {
+            txt += `<li><a href="login.html" class="scroll-link">Login | Signup</a></li>`
+
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+
+        else
+        {
+            txt += `<li><a href="main.html" class="scroll-link" onclick="logout()">로그아웃</a></li>`
+            
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+    }
+</script>
+
 <!--Header_section-->
 <header id="header_wrapper">
     <div class="container">
@@ -43,7 +76,9 @@
                         <li><a href="place.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
-                        <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                        <div id="log_in_out">
+                            <script>in_out()</script>
+                        </div>
                     </ul>
                 </div>
             </nav>
@@ -69,12 +104,17 @@
                     var jsonTicket = JSON.parse(xhr.responseText);
                     var txt = "";
                     
+                    txt += `<div class="name_ticket">`
+                    txt += `<table class="table table-striped table-hover"><tbody>`;
                     for (let i = 0; i < jsonTicket.length; i++)
                     {
                         console.log("유저 수 : " + jsonTicket.length);
-                        txt += "<div><h2 style='text-align:left;'>유저 이름 : " + jsonTicket[i]['username'] + "</h2></div>";
-                        txt += "<div><h2 style='text-align:left;'>티켓 갯수 : " + jsonTicket[i]['ticketCount'] + "</h2><br></div>";
+                        txt += "<tr><th style='text-align:left;'>유저 이름 : " + jsonTicket[i]['username'] + "</th>";
+                        txt += "<th style='text-align:left;'>티켓 갯수 : " + jsonTicket[i]['ticketCount'] + "</th></tr>";
                     }
+                    txt += "</tbody></table>"
+                    txt += "</div>"
+
                     document.getElementById('all_users').innerHTML = txt;
                 }
                 else {

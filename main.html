@@ -23,6 +23,33 @@
     
 </head>
 
+<script>
+    function logout()
+    {
+        accessToken = localStorage.setItem("accessToken", "");
+    }
+
+    function in_out()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        var txt = "";
+
+        if (accessToken === "")
+        {
+            txt += `<li><a href="login.html" class="scroll-link">Login | Signup</a></li>`
+
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+
+        else
+        {
+            txt += `<li><a href="main.html" class="scroll-link" onclick="logout();">로그아웃</a></li>`;
+                
+            document.getElementById('log_in_out').innerHTML = txt;
+        }
+    }
+</script>
+
 <!--Header_section-->
 <header id="header_wrapper">
     <div class="container">
@@ -42,7 +69,9 @@
                         <li><a href="place.html" class="scroll-link">관광지</a></li>
                         <li><a href="reserveDetail.html" class="scroll-link">예약하기</a></li>
                         <li><a href="card.html" class="scroll-link">카드</a></li>
-                        <li><a href="login.html" class="scroll-link">Login | Signup</a></li>
+                        <div id="log_in_out">
+                            <script>in_out()</script>
+                        </div>
                     </ul>
                 </div>
             </nav>
@@ -195,11 +224,61 @@
         justify-content: center;
         align-items: center;
     }
+
+    .top_elements {
+        display: block;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .top_element {
+        padding-top: 30px;
+        height: 150px;
+        background-color: #ebe939;
+        margin: 10px;
+    }
 </style>
 
 <style type="text/css">
     @import url("css/mycss.css");
 </style>
+
+<script>
+    var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
+
+    function TopContents()
+    {
+        var accessToken = localStorage.getItem('accessToken');
+        var xhr = new XMLHttpRequest();
+
+        xhr.open("GET", url + '/route/top3', true); 
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === xhr.DONE) {
+                if (xhr.status === 200) { 
+                    var top3 = JSON.parse(xhr.responseText);
+                    var txt = "";
+
+                    for (let i = 0; i < top3.length; i++)
+                    {
+                        txt += "<div class='top_element'>"
+                        txt += "<p style='font-size: 30px;'>TOP" + (i + 1) + "</p>";
+                        txt += "<p>출발지 : " + top3[i].departureName + " </p>";
+                        txt += "<p>도착지 : " + top3[i].arrivalName + "</p></div>";
+                    }
+                    
+                    document.getElementById('top_content').innerHTML = txt;
+                }
+                else {
+                    console.log('실패');
+                }
+            }
+        }
+        xhr.send();
+    }
+</script>
 
 <!--Hero_Section-->
 <section id="info" class="train_trip">
@@ -217,9 +296,9 @@
         </button>
         <h2>Top 3 열차 경로</h2>
         <div class="row">
-            <button type="button" class="btn-secondary col-md-4 col-sm-8 b" style="height: 80px;">Top1</button>
-            <button type="button" class="btn-secondary col-md-4 col-sm-8 b" style="height: 80px;">Top2</button>
-            <button type="button" class="btn-secondary col-md-4 col-sm-8 b" style="height: 80px;">Top3</button>
+            <div class="top_elements" id="top_content">
+                <script>TopContents()</script>
+            </div>
         </div>
 
         <div class="table-responsive text-center">
