@@ -237,8 +237,7 @@
         padding-top: 30px;
         width: 30%;
         height: 300px;
-        color: white;
-        background: url('./train.jpg');
+        color: black;
         background-color: lightgray;
         background-size: cover;
         margin: 10px;
@@ -269,7 +268,8 @@
 
                     for (let i = 0; i < top3.length; i++)
                     {
-                        txt += `<div class="top_element img-circle">`
+                        txt += `<div class="top_element img-circle"` + `style="background: url('./top` + (i + 1) + `.jpg');"`
+                        txt += "background-size: contain;" + `>`
                         txt += "<p style='font-size: 40px; margin-top: 80px'>TOP" + (i + 1) + "</p>";
                         txt += "<p style='font-size: 20px;'>출발지 : " + top3[i].departureName + " </p>";
                         txt += "<p style='font-size: 20px;'>도착지 : " + top3[i].arrivalName + "</p></div>";

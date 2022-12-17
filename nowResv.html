@@ -5,7 +5,9 @@
     .name_ticket {
         font-size: 20px;
         background-color: #F3F781;
+        font-family: 'Noto Sans KR', sans-serif;
     }
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css); 
 </style>
 
 <head>
@@ -112,8 +114,8 @@
                     for (let i = 0; i < jsonTicket.length; i++)
                     {
                         console.log("유저 수 : " + jsonTicket.length);
-                        txt += "<tr><th style='text-align:left;'>유저 이름 : " + jsonTicket[i]['username'] + "</th>";
-                        txt += "<th style='text-align:left;'>티켓 갯수 : " + jsonTicket[i]['ticketCount'] + "</th></tr>";
+                        txt += `<tr><th style="text-align:left; font-family: 'Noto Sans KR', sans-serif;">유저 이름 : ` + jsonTicket[i]['username'] + "</th>";
+                        txt += "<th style='text-align:left; font-family: 'Noto Sans KR', sans-serif;'>티켓 갯수 : " + jsonTicket[i]['ticketCount'] + "</th></tr>";
                     }
                     
                     txt += "</tbody></table>"
@@ -144,9 +146,9 @@
                     var jsonTicket = JSON.parse(xhr.responseText);
                     var txt = "";
 
-                    txt += "<h1 style='font-family: Sans-Serif; font-weight: bold;'>총합 유저수 : "
+                    txt += "<h2 style='padding-bottom: 10px; padding-left: 10px; text-align: left; align-items: left; font-family: 'Noto Sans KR', sans-serif; font-weight: bold;'>총합 유저수 : "
                     txt += jsonTicket['customerCount'];
-                    txt += " 총 티켓 수 : " + jsonTicket['ticketCount'] + "</h1>";
+                    txt += " 총 티켓 수 : " + jsonTicket['ticketCount'] + "</h2>";
 
                     document.getElementById('total').innerHTML = txt;
                 }
@@ -160,12 +162,12 @@
 </script>
 
 <body>
-    <div style="margin-left: 10%; margin-right: 10%; background-color: #F3F781;">
+    <div style="margin-left: 15%; margin-right: 15%; background-color: #F3F781;">
         <div id="all_users" style="display: block; text-align: left; align-items: left;">
             <script>ticket_count();</script>
         </div>
         
-        <div id="total"">
+        <div id="total" style='text-align: left; align-items: left;'>
             <script>user_count()</script>
         </div>
     </div>
