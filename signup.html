@@ -109,7 +109,7 @@ function get_signup(form)
     var xhr = new XMLHttpRequest();
     xhr.open("POST", url + '/signup', true); 
     xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
+    //xhr.setRequestHeader('Authorization',"Bearer " + accessToken);
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === xhr.DONE) {
@@ -155,7 +155,7 @@ function get_signup(form)
                     </label>
                   </div>
                 <div class="btn-area">
-                    <button id="join" type="button" onclick="get_signup(); location.assign('./login.html');">회원가입</button>
+                    <button id="join" type="button" onclick="get_signup();">회원가입</button>
                 </div>
             </form>
         </section>
