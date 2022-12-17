@@ -144,7 +144,8 @@
                     var jsonTicket = JSON.parse(xhr.responseText);
                     var txt = "";
 
-                    txt += "<h1>총합 유저수 : " + jsonTicket['customerCount'];
+                    txt += "<h1 style='font-family: Sans-Serif; font-weight: bold;'>총합 유저수 : "
+                    txt += jsonTicket['customerCount'];
                     txt += " 총 티켓 수 : " + jsonTicket['ticketCount'] + "</h1>";
 
                     document.getElementById('total').innerHTML = txt;

@@ -140,8 +140,8 @@
     .review_info {
         display: block;
         font-size: 15px;
-        width: 100%;
-        height: 100px;
+        width: 400px;
+        height: 120px;
         padding: 5px;
         border: solid;
         border-width: 100%;
@@ -179,15 +179,14 @@
         let json = JSON.parse(jsonText); // String -> json으로 변환
         let txt = "";
         const pd = JSON.parse(localStorage.getItem('placeDetail'));
-        
+
         for (let i = 0; i < json.length; i++)
         {
-            if (pd.placeInfo === json[i]['attrName'])
+            if (pd.placeInfo == json[i]['id'])
             {
-                localStorage.setItem('place_id', json[i]['id']);
-                txt += "<img src=./images/" + pd.placeInfo + ".jpg alt='example' class='my_area my_picture' style='padding: 0px;'><p>소개</p>";
+                txt += "<img src=./images/" + pd.placeInfo + ".jpg alt='example' class='my_area my_picture' style='padding: 0px;'><p style='font-size: 20px; font-family: Sans-Serif'>소개</p>";
                 txt += `<div class="form-outline">`;
-                txt += `<textarea class="form-control my_text" id="textArea1" style="font-size: 20px;" rows="5" readonly>`;
+                txt += `<textarea class="form-control my_text" id="textArea1" style="padding: 10px; font-size: 20px; font-family: Sans-Serif'" rows="5" readonly>`;
                 txt += json[i]['detail'];
                 txt += "</textarea></div>";
             }
@@ -220,9 +219,9 @@ function show_comments()
         
         for (let i = 0; i < json.length; i++)
         {
-            txt += `<table class="border=1" id="place_list" style="width: 100%;">`;
-            txt += `<tr class="review_info" style="border: solid;">`;
-            txt += `<th style="font-size: 20px;">유저 이메일 : ` + json[i]['username'] + "<br>별점 : ";
+            txt += `<table class="table border=1" id="place_list" style="width: 100%;">`;
+            txt += `<tr style="border: solid; margin: 10px;">`;
+            txt += `<th style="font-size: 20px; font-family: Sans-Serif;">유저 이름 : ` + json[i]['username'] + "<br>별점 : ";
             txt += json[i]['rating'] + "<br>리뷰 : " + json[i]['comment'] + "<br><br></th></tr>";
             txt += "</table>"
                 
@@ -305,30 +304,7 @@ function set_rating(star)
                     <div id="user_comments">
                         <script>show_comments()</script>
                     </div>
-                    <!-- <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 껍질을 깨뜨려버리자</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 두려움은 이제 거둬</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 오로지 나를 믿어</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 지금이 바로 time to fly</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 두 눈 앞의 끝, 사뿐 넘어가</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 한계 밖의 trip, 짜릿하잖아</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 녹이 슨 심장에 쉼 없이 피는 꿈</th>
-                    </tr>
-                    <tr class="review_info">
-                        <th>이메일 : lsyun1234@naver.com<br>별점 : ★★★★☆<br>리뷰 : 무모하대도 믿어 난</th>
-                    </tr> -->
+                    
                 </table>
             </div>
         </div>
@@ -338,7 +314,7 @@ function set_rating(star)
         <h1>댓글</h1>
         <input type="hidden" id="star_hidden" value="5">
         <div id="rating_menu" class="dropdown" style="font-size: 20px;">
-            <button id="rating_select" class="btn btn-info dropdown-toggle" style="font-size: 15px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="rating_select" class="btn btn-primary dropdown-toggle" style="font-size: 15px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 별점(5)
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -352,7 +328,7 @@ function set_rating(star)
         <textarea class="form-control" id="comment_area" style="font-size: 15px;" rows="5">
 
         </textarea>
-        <button type="button" onclick="check_login(); location.replace('./placeInfo.html');" class="btn btn-info main_btn" style="justify-content:center; font-size: 15px; float:right">
+        <button type="button" onclick="check_login(); location.replace('./placeInfo.html');" class="btn btn-primary main_btn" style="justify-content:center; font-size: 15px; float:right">
             댓글 등록
         </button>
         <br>

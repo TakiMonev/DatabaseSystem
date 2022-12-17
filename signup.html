@@ -126,6 +126,7 @@ function get_signup(form)
         }
     }
     xhr.send(data);
+    
 }
 </script>
 
@@ -155,7 +156,7 @@ function get_signup(form)
                     </label>
                   </div>
                 <div class="btn-area">
-                    <button id="join" type="button" onclick="get_signup();">회원가입</button>
+                    <button id="join" type="button" onclick="get_signup(); window.open('./login.html');">회원가입</button>
                 </div>
             </form>
         </section>
