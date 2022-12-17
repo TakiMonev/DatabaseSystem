@@ -87,18 +87,18 @@ function get_signup(form)
     var accessToken = localStorage.getItem('accessToken'); 
     var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
     var isStudent = document.getElementById("check1");
-    var tf = 0;
+    var tf = true;
     const userName = document.getElementById("id").value;
     const email = document.getElementById("Email_Address").value;
     const password = document.getElementById("pw").value;
     
     if (isStudent.checked) {
-        tf = 1;
+        tf = true;
     }
     else {
-        tf = 0;
+        tf = false;
     }
-
+    
     data = JSON.stringify({
         email: Email_Address.value,
         isStudent: tf,
@@ -116,7 +116,6 @@ function get_signup(form)
             console.log(data);
             if (xhr.status === 200) { 
                 //var jsonData=JSON.parse(xhr.response);
-                localStorage.setItem('isStudent', data.isStudent);
                 localStorage.setItem('accessToken',data.accessToken)
                 localStorage.setItem('username',data.username)
                 localStorage.setItem('email',email)
@@ -156,7 +155,7 @@ function get_signup(form)
                     </label>
                   </div>
                 <div class="btn-area">
-                    <button id="join" type="button" onclick="get_signup(); location.replace('./main.html');">회원가입</a></button>
+                    <button id="join" type="button" onclick="get_signup(); location.assign('./login.html');">회원가입</button>
                 </div>
             </form>
         </section>
