@@ -271,8 +271,8 @@
             const train_time = document.getElementById('times');
             let txt = "";
 
-            txt += "<p id='start_time'>출발 시간 : " + s_time + "</p>";
-            txt += "<p id='end_time'>도착 시간 : " + e_time + "</p>";
+            txt += "<p id='start_time' style='font-size: 20px;'>출발 시간 : " + s_time + "</p>";
+            txt += "<p id='end_time' style='font-size: 20px;'>도착 시간 : " + e_time + "</p>";
 
             train_time.innerHTML = txt;
         }
@@ -334,8 +334,7 @@
             }
             xhttp0.send();
             
-            window.alert('예약이 완료되었습니다.')
-            location.replace('./main.html')
+            window.alert('예약이 완료되었습니다.');
         }
 
         function changeId(idNum)
@@ -469,9 +468,9 @@
     <div class="my_body">
         <div class="row col-md-4 col-sm-4 my_area">
             <img src="train.png" alt="example" class="my_area">
-            <p>소개</p>
+            <p style="font-size: 20px;">소개</p>
             <div class="form-outline">
-                <textarea class="form-control my_text" id="textArea1" rows="10" readonly>
+                <textarea class="form-control my_text" id="textArea1" style="font-size: 20px;" rows="5" readonly>
 기차 예약 페이지입니다
                 </textarea>
             </div>
@@ -516,7 +515,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row"><button id="confirm_resv" class="btn btn-info" type="button" onclick="resv_ticket();" style="font-size: 20px;">예약 완료</button></div>
+            <div class="row"><button id="confirm_resv" class="btn btn-info" type="button" onclick="resv_ticket(); location.replace('./main.html');" style="font-size: 20px;">예약 완료</button></div>
         </div>
 
     </div>

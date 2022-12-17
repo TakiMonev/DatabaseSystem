@@ -268,7 +268,7 @@ function show_place() {
             txt += "<tr class='row col-md-4 col-sm-4'>"
             txt += "<th class='big_th'><a href='placeInfo.html'"
             txt += `onclick="set_place('` + json[i]['attrName'] + "'); set_id(" + json[i]['id'] + `);">`;
-            txt += json[i]['attrName'];
+            txt += json[i]['attrName'] + " (평균 평점 : " + Math.round(json[i]['ratingAvg'] * 100) / 100 + ")";
             txt += "<img class='imgs' src='./images/" + json[i]['attrName'] + ".jpg'></a></th></tr>";
         }
         document.getElementById('place_init').innerHTML = txt;
