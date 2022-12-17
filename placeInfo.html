@@ -139,7 +139,7 @@
         display: block;
         font-size: 15px;
         width: 100%;
-        height: 80px;
+        height: 100px;
         padding: 5px;
         border: solid;
         border-width: 100%;
@@ -185,7 +185,7 @@
                 localStorage.setItem('place_id', json[i]['id']);
                 txt += "<img src=./images/" + pd.placeInfo + ".jpg alt='example' class='my_area my_picture' style='padding: 0px;'><p>소개</p>";
                 txt += `<div class="form-outline">`;
-                txt += `<textarea class="form-control my_text" id="textArea1" rows="10" readonly>`;
+                txt += `<textarea class="form-control my_text" id="textArea1" style="font-size: 20px;" rows="5" readonly>`;
                 txt += json[i]['detail'];
                 txt += "</textarea></div>";
             }
@@ -218,9 +218,11 @@ function show_comments()
         
         for (let i = 0; i < json.length; i++)
         {
+            txt += `<table class="border=1" id="place_list" style="width: 100%;">`;
             txt += `<tr class="review_info" style="border: solid;">`;
-            txt += "<th>유저 이메일 : " + json[i]['username'] + "<br>별점 : ";
-            txt += json[i]['rating'] + "<br>리뷰 : " + json[i]['comment'] + "<br><br></th></tr>"
+            txt += `<th style="font-size: 20px;">유저 이메일 : ` + json[i]['username'] + "<br>별점 : ";
+            txt += json[i]['rating'] + "<br>리뷰 : " + json[i]['comment'] + "<br><br></th></tr>";
+            txt += "</table>"
                 
             document.getElementById('user_comments').innerHTML = txt;
         }
@@ -334,21 +336,21 @@ function set_rating(star)
         <h1>댓글</h1>
         <input type="hidden" id="star_hidden" value="5">
         <div id="rating_menu" class="dropdown" style="font-size: 20px;">
-            <button id="rating_select" class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="rating_select" class="btn btn-info dropdown-toggle" style="font-size: 15px;" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 별점(5)
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" onclick="set_rating(1)">별점(1)</a>
-                <a class="dropdown-item" onclick="set_rating(2)">별점(2)</a>
-                <a class="dropdown-item" onclick="set_rating(3)">별점(3)</a>
-                <a class="dropdown-item" onclick="set_rating(4)">별점(4)</a>
-                <a class="dropdown-item" onclick="set_rating(5)">별점(5)</a>
+                <a class="dropdown-item" style="font-size: 15px;" onclick="set_rating(1)">별점(1)</a>
+                <a class="dropdown-item" style="font-size: 15px;" onclick="set_rating(2)">별점(2)</a>
+                <a class="dropdown-item" style="font-size: 15px;" onclick="set_rating(3)">별점(3)</a>
+                <a class="dropdown-item" style="font-size: 15px;" onclick="set_rating(4)">별점(4)</a>
+                <a class="dropdown-item" style="font-size: 15px;" onclick="set_rating(5)">별점(5)</a>
             </div>
         </div>
-        <textarea class="form-control" id="comment_area" rows="5">
+        <textarea class="form-control" id="comment_area" style="font-size: 15px;" rows="5">
 
         </textarea>
-        <button type="button" onclick="check_login(); location.replace('./placeInfo.html');" class="btn btn-info main_btn" style="justify-content:center; float:right">
+        <button type="button" onclick="check_login(); location.replace('./placeInfo.html');" class="btn btn-info main_btn" style="justify-content:center; font-size: 15px; float:right">
             댓글 등록
         </button>
         <br>

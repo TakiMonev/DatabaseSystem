@@ -271,8 +271,14 @@
             const train_time = document.getElementById('times');
             let txt = "";
 
-            txt += "<p id='start_time' style='font-size: 20px;'>출발 시간 : " + s_time + "</p>";
-            txt += "<p id='end_time' style='font-size: 20px;'>도착 시간 : " + e_time + "</p>";
+            txt += "<p id='start_time' style='font-size: 20px;'>출발 시간 : "
+            
+            if (s_time[0] !== undefined)
+                txt += s_time[0] + "년 " + s_time[1] + "월 " + s_time[2] + "일 " + s_time[3] + "시" + "</p>";
+            txt += "<p id='end_time' style='font-size: 20px;'>도착 시간 : "
+            
+            if (e_time[0] !== undefined)
+                txt += e_time[0] + "년 " + e_time[1] + "월 " + e_time[2] + "일 " + e_time[3] + "시" + "</p>";
 
             train_time.innerHTML = txt;
         }

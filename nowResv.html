@@ -4,6 +4,7 @@
 <style>
     .name_ticket {
         font-size: 20px;
+        background-color: #F3F781;
     }
 </style>
 
@@ -88,7 +89,7 @@
 
 <script>
     var url = "http://ec2-3-36-51-156.ap-northeast-2.compute.amazonaws.com:81";
-
+    
     function ticket_count()
     {
         var accessToken = localStorage.getItem('accessToken');
@@ -105,13 +106,14 @@
                     var txt = "";
                     
                     txt += `<div class="name_ticket">`
-                    txt += `<table class="table table-striped table-hover"><tbody>`;
+                    txt += `<table class="table table"><tbody>`;
                     for (let i = 0; i < jsonTicket.length; i++)
                     {
                         console.log("유저 수 : " + jsonTicket.length);
                         txt += "<tr><th style='text-align:left;'>유저 이름 : " + jsonTicket[i]['username'] + "</th>";
                         txt += "<th style='text-align:left;'>티켓 갯수 : " + jsonTicket[i]['ticketCount'] + "</th></tr>";
                     }
+                    
                     txt += "</tbody></table>"
                     txt += "</div>"
 
@@ -155,12 +157,14 @@
 </script>
 
 <body>
-    <div id="all_users" style="display: block; text-align: left; align-items: left;">
-        <script>ticket_count()</script>
-    </div>
-    
-    <div id="total" style="display: block; border: solid;">
-        <script>user_count()</script>
+    <div style="margin-left: 10%; margin-right: 10%; background-color: #F3F781;">
+        <div id="all_users" style="display: block; text-align: left; align-items: left;">
+            <script>ticket_count();</script>
+        </div>
+        
+        <div id="total"">
+            <script>user_count()</script>
+        </div>
     </div>
 </body>
 
