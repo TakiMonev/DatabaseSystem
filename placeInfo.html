@@ -219,7 +219,7 @@ function show_comments()
         
         for (let i = 0; i < json.length; i++)
         {
-            txt += `<table class="table border=1" id="place_list" style="width: 100%;">`;
+            txt += `<table class="table border=1 border-secondary" id="place_list" style="width: 100%;">`;
             txt += `<tr style="border: solid; margin: 10px;">`;
             txt += `<th style="font-size: 20px; font-family: Sans-Serif;">유저 이름 : ` + json[i]['username'] + "<br>별점 : ";
             txt += json[i]['rating'] + "<br>리뷰 : " + json[i]['comment'] + "<br><br></th></tr>";
